@@ -10,5 +10,7 @@ namespace Casino.BLL
     public interface IUser
     {
         UserDTO Login(string username, string password);
+        public void Logout();
+        public UserDTO Register(UserDTO user);
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL_EF
 {
-    public class ResultEF : IResult
+    public class ResultEF : IResults
     {
         public CasinoDbContext _context=new CasinoDbContext();
         public IEnumerable<ResultDTO> GetAllGameResults(int gameId)

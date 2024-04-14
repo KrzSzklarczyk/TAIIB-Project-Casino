@@ -12,8 +12,8 @@ namespace Casino.Model
     {
         [Key]
         public int UserId { get; set; }
-        public required List<Transactions> Transactions { get; set; }
-        public required List<Result> Results { get; set; }
+        public  List<Transactions>? Transactions { get; set; }
+        public  List<Result>? Results { get; set; }
         [MaxLength(30)]
         public required string Login { get; set; }
         [MaxLength(30)]

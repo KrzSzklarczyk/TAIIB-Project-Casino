@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL
 {
-    public interface IResult
+    public interface IResults
     {
         ResultDTO GetResult(int userId, int gameId);
         IEnumerable<ResultDTO> GetAllUserResults(int userId);
