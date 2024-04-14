@@ -12,10 +12,10 @@ namespace Casino.BLL.DTO
     public class UserDTO
     {
         public int UserId { get; set; }
-        public List<TransactionsDTO> Transactions { get; set; }
-        public List<ResultDTO> Results { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public List<TransactionsDTO>? Transactions { get; set; }
+        public List<ResultDTO>? Results { get; set; }
+        public string? Login { get; set; }
+        public string? Password { get; set; }
         public string Email { get; set; }
         public string NickName { get; set; }
         public int Credits { get; set; }
