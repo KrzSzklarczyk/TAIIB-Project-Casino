@@ -21,7 +21,7 @@ namespace Casino.Model
         [MaxLength(500)]
         public required string Description { get; set; }
         public required BetType BetType { get; set; }
-
+        
         public void Configure(EntityTypeBuilder<Roulette> builder)
         {
             builder.HasOne(x => x.Game)

@@ -23,9 +23,14 @@ namespace Casino.Model
         public DateTime DateTime { get; set; }
         public required int Amount { get; set; }
 
-        public void Configure(EntityTypeBuilder<Roulette> builder)
+        public void Configure(EntityTypeBuilder<Result> builder)
         {
-            //?
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.Results) //?
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Game)
+                .WithOne(x => x.Result) //?
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

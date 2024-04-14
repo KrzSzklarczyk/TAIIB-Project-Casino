@@ -15,25 +15,24 @@ namespace Casino.Model
     {
         [Key]
         public int GameId { get; set; }
-        public int ResultId { get; set; }
+        public int? ResultId { get; set; }
         [ForeignKey(nameof(ResultId))]
-        public required Result Result { get; set; }
-        public int BlackJackId { get; set; }
+        public Result? Result { get; set; }
+        public int? BlackJackId { get; set; }
         [ForeignKey(nameof(BlackJackId))]
-        public required BlackJack BlackJack { get; set; }
-        public int RouletteId { get; set; }
+        public BlackJack? BlackJack { get; set; }
+        public int? RouletteId { get; set; }
         [ForeignKey(nameof(RouletteId))]
-        public required Roulette Roulette{ get; set; }
-        public int BanditId { get; set; }
+        public Roulette? Roulette{ get; set; }
+        public int? BanditId { get; set; }
         [ForeignKey(nameof(BanditId))]
-        public required Bandit Bandit { get; set; }
+        public Bandit? Bandit { get; set; }
         [MaxLength(500)]
         public required string Description { get; set; }
         public required DateTime StartDate { get; set; }
         public required DateTime EndDate { get; set; }
         public required int MaxBet { get; set; }
         public required int MinBet { get; set; }
-        public required int BetAmount { get; set; }
 
         public void Configure(EntityTypeBuilder<Game> builder)
         {

@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Casino.BLL\Casino.BLL.csproj" />
+    <ProjectReference Include="..\Casino.DAL\Casino.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
