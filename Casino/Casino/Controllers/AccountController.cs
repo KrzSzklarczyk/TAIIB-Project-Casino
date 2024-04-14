@@ -18,8 +18,8 @@ namespace Casino.Controllers
         [HttpPost("login")]
         public ActionResult Login(UserDTO user)
         {
-            _User.Login(user.Login, user.Password);
-            return Ok(user);
+            
+            return Ok(_User.Login(user.Login, user.Password));
         }
 
         [HttpPost("logout")]
@@ -32,8 +32,8 @@ namespace Casino.Controllers
         [HttpPost("Register")]
         public ActionResult Register(UserDTO user)
         {
-           _User.Register(user);
-            return Ok(user);
+          
+            return Ok(_User.Register(user));
         }
     }
 }

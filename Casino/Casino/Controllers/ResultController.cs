@@ -18,8 +18,8 @@ namespace Casino.Controllers
         [HttpGet]
         public ActionResult GetResults(int userID, int gameID)
         {
-            _result.GetResult(userID, gameID);
-            return Ok();
+          
+            return Ok(_result.GetResult(userID, gameID));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Casino.Controllers
             return _transactions;
         }
 
-        [HttpPost("login")]
+        [HttpPost("historia")]
         public ActionResult ViewHistory(int userId, ITransactions? _transactions)
         {
             var history = _transactions.GetHistory(userId);
