@@ -1,6 +1,8 @@
 using Casino.BLL;
 using Casino.BLL_EF;
 using Casino.DAL;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Dependency Injection
-builder.Services.AddDbContext<CasinoDbContext>();
+
 builder.Services.AddScoped<IUser,UserEF >();
 builder.Services.AddScoped<IGame,GameEF >();
 builder.Services.AddScoped<IResults,ResultEF >();
 builder.Services.AddScoped<ITransactions,TransactionsEF >();
+builder.Services.AddDbContext<CasinoDbContext>(Options=>Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

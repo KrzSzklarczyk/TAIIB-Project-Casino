@@ -1,12 +1,15 @@
 ﻿using Casino.BLL;
 using Casino.BLL.DTO;
 using Casino.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace Casino.BLL_EF
 {
     public class GameEF : IGame
     {
-        public CasinoDbContext context = new CasinoDbContext();
+        public GameEF(CasinoDbContext dbContext) { context = dbContext; }
+        public GameEF() {  }
+        private static CasinoDbContext context;
         public BanditDTO GetBanditInfo(int gameId)
         {
             var war = context.Bandits.FirstOrDefault(x => x.GameId == gameId);

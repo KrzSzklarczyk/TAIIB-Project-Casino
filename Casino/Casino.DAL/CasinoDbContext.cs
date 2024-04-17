@@ -12,13 +12,8 @@ namespace Casino.DAL
         public DbSet<Roulette> Roulettes{ get; set; }
         public DbSet<BlackJack> BlackJacks{ get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CasinoProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            }
-        }
+    public CasinoDbContext(DbContextOptions<CasinoDbContext> dbContextOptions):base(dbContextOptions) { }
+    public CasinoDbContext():base() { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

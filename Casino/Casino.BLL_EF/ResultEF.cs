@@ -13,7 +13,9 @@ namespace Casino.BLL_EF
 {
     public class ResultEF : IResults
     {
-        public CasinoDbContext _context = new CasinoDbContext();
+        public ResultEF(CasinoDbContext dbContext) { _context = dbContext; }
+        public ResultEF() { }
+        public static CasinoDbContext _context = new CasinoDbContext();
         public IEnumerable<ResultDTO> GetAllGameResults(int gameId)
         {
             var help = _context.Results.Where(t => t.GameId == gameId);
@@ -23,6 +25,7 @@ namespace Casino.BLL_EF
 
         public IEnumerable<ResultDTO> GetAllUserResults(int userId)
         {
+            
             var help = _context.Results.Where(t => t.UserId == userId);
             List<ResultDTO> result = help.Select(x => new ResultDTO { Amount = x.Amount, DateTime = x.DateTime, GameId = x.GameId, ResultId = x.ResultId, UserId = x.UserId }).ToList();
             return result;
