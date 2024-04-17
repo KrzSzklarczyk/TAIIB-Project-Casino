@@ -8,6 +8,6 @@ namespace Casino.Model.DataTypes
 {
     public enum BanditType
     {
-        xd, cos, nwm
+        podkowa, gwiazdka, diament 
     }
 }

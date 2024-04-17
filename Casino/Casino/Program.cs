@@ -16,6 +16,7 @@ builder.Services.AddScoped<IUser,UserEF >();
 builder.Services.AddScoped<IGame,GameEF >();
 builder.Services.AddScoped<IResults,ResultEF >();
 builder.Services.AddScoped<ITransactions,TransactionsEF >();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -26,10 +26,10 @@ namespace Casino.Model
         public void Configure(EntityTypeBuilder<Result> builder)
         {
             builder.HasOne(x => x.User)
-                .WithMany(x => x.Results) //?
+                .WithMany(x => x.Results)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Game)
-                .WithOne(x => x.Result) //?
+                .WithOne(x => x.Result)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

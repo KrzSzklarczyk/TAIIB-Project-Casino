@@ -27,7 +27,7 @@ namespace Casino.Model
         public void Configure(EntityTypeBuilder<Bandit> builder)
         {
             builder.HasOne(x => x.Game)
-                .WithOne(x => x.Bandit) //?
+                .WithOne(x => x.Bandit)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 

@@ -25,7 +25,7 @@ namespace Casino.Model
         public void Configure(EntityTypeBuilder<Roulette> builder)
         {
             builder.HasOne(x => x.Game)
-                .WithOne(x => x.Roulette) //?
+                .WithOne(x => x.Roulette)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 

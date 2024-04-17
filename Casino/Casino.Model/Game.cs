@@ -37,19 +37,19 @@ namespace Casino.Model
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder.HasOne(x => x.Result)
-                .WithOne(x => x.Game) //  ?
+                .WithOne(x => x.Game)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.BlackJack)
-                .WithOne(x => x.Game) // ?
+                .WithOne(x => x.Game)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Roulette)
-                .WithOne(x => x.Game) //?
+                .WithOne(x => x.Game)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Bandit)
-                .WithOne(x => x.Game) // ?
+                .WithOne(x => x.Game)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

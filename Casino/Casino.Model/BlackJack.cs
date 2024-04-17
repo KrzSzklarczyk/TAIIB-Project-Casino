@@ -24,7 +24,7 @@ namespace Casino.Model
 
         public void Configure(EntityTypeBuilder<BlackJack> builder)
         {
-            builder.HasOne(x => x.Game) //?
+            builder.HasOne(x => x.Game)
                 .WithOne(x => x.BlackJack)
                 .OnDelete(DeleteBehavior.Cascade);
         }

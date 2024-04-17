@@ -23,7 +23,7 @@ namespace Casino.Model
         public void Configure(EntityTypeBuilder<Transactions> builder)
         {
             builder.HasOne(x => x.User)
-                .WithMany(x => x.Transactions) //?
+                .WithMany(x => x.Transactions)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
