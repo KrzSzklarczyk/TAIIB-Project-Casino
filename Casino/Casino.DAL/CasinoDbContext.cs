@@ -12,8 +12,8 @@ namespace Casino.DAL
         public DbSet<Roulette> Roulettes{ get; set; }
         public DbSet<BlackJack> BlackJacks{ get; set; }
 
-    public CasinoDbContext(DbContextOptions<CasinoDbContext> dbContextOptions):base(dbContextOptions) { }
-    public CasinoDbContext():base() { }
+        public CasinoDbContext(DbContextOptions<CasinoDbContext> dbContextOptions):base(dbContextOptions) { }
+        public CasinoDbContext():base() { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

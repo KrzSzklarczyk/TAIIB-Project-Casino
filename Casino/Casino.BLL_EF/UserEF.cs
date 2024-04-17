@@ -14,7 +14,7 @@ namespace Casino.BLL_EF
     {
         public UserEF(CasinoDbContext dbContext) { _context = dbContext; }
 
-        private   CasinoDbContext _context ;
+        private CasinoDbContext _context ;
         public UserDTO Login(string username, string password)
         {
             var user = _context.Users.FirstOrDefault(x => x.Login == username && x.Password == password);

@@ -13,8 +13,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Dependency Injection
-
 builder.Services.AddScoped<IUser,UserEF >();
 builder.Services.AddScoped<IGame,GameEF >();
 builder.Services.AddScoped<IResults,ResultEF >();
