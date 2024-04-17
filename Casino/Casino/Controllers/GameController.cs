@@ -11,7 +11,7 @@ namespace Casino.Controllers
     {
         private readonly IGame _Game;
 
-        GameController(IGame Game) { _Game = Game; }
+     public   GameController(IGame Game) { _Game = Game; }
         [HttpGet("BANDYTA!!!/{id}")]
         public ActionResult BandytaInfo(int id)
         {
@@ -34,7 +34,7 @@ namespace Casino.Controllers
         public ActionResult GameInfo(int id)
         {
             
-            return Ok(_Game.GetBanditInfo(id));
+            return Ok(_Game.GetGameInfo(id));
         }
     }
 }

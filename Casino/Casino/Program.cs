@@ -1,3 +1,5 @@
+using Casino.BLL;
+using Casino.BLL_EF;
 using Casino.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CasinoDbContext>();
-
+builder.Services.AddScoped<IUser,UserEF >();
+builder.Services.AddScoped<IGame,GameEF >();
+builder.Services.AddScoped<IResults,ResultEF >();
+builder.Services.AddScoped<ITransactions,TransactionsEF >();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

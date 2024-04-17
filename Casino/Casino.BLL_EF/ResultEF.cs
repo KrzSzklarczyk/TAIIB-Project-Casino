@@ -30,7 +30,8 @@ namespace Casino.BLL_EF
 
         public ResultDTO GetResult(int userId, int gameId)
         {
-            var help = _context.Results.First(t => t.UserId == userId && t.GameId==gameId);
+            var help = _context.Results.FirstOrDefault(t => t.UserId == userId && t.GameId==gameId);
+            if (help == null) return null;
             var result = new ResultDTO { Amount = help.Amount, DateTime = help.DateTime, GameId = help.GameId, ResultId = help.ResultId, UserId = help.UserId };
             return result;
         }

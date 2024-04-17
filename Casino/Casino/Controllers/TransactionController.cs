@@ -1,5 +1,7 @@
 ﻿using Casino.BLL;
+using Casino.BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Casino.Controllers
 {
@@ -13,17 +15,19 @@ namespace Casino.Controllers
         {
             this._transactions = t;
         }
-        [HttpGet("transakcje")]
-        public ITransactions? Get_transactions()
-        {
-            return _transactions;
-        }
+      
         
-        [HttpPost("historia")]
-        public ActionResult ViewHistory(int userId, ITransactions? _transactions)
+        [HttpGet("historia/{userid}")]
+        public ActionResult ViewHistory(int userid)
         {
-            var history = _transactions.GetHistory(userId);
+            var history = _transactions.GetHistory(userid);
             return Ok(history);
+        }
+        [HttpPost("nowa")]
+        public ActionResult AddTransaction(TransactionsDTO transactions)
+        {
+            var b = _transactions.AddTransaction(transactions);
+          return Ok(b);
         }
     }
 }
