@@ -18,6 +18,7 @@ namespace Casino.BLL_EF
         {
             Model.Transactions tran = new Model.Transactions { Amount = (double)transaction.Amount, UserId = (int)transaction.UserId, Date = (DateTime)transaction.Date, User = _context.Users.SingleOrDefault(x => x.UserId == transaction.UserId) };
             _context.Transactions.Add(tran);
+            _context.Users.FirstOrDefault(x => x.UserId == transaction.UserId).Credits += (int)transaction.Amount;
             _context.SaveChanges();
             return true;
         }

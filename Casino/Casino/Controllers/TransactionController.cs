@@ -22,7 +22,7 @@ namespace Casino.Controllers
             return Ok(history);
         }
 
-        [HttpPost("New/{transactions}")]
+        [HttpPost("New")]
         public ActionResult AddTransaction(TransactionsDTO transactions)
         {
             var transtaction = _transactions.AddTransaction(transactions);

@@ -15,7 +15,7 @@ namespace Casino.Controllers
             _User = u;
         }
 
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         public ActionResult Login(UserDTO user)
         {            
             return Ok(_User.Login(user.Login, user.Password));
