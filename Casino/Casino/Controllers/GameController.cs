@@ -1,6 +1,4 @@
 ﻿using Casino.BLL;
-using Casino.BLL.DTO;
-using Casino.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Casino.Controllers
@@ -11,29 +9,29 @@ namespace Casino.Controllers
     {
         private readonly IGame _Game;
 
-     public   GameController(IGame Game) { _Game = Game; }
-        [HttpGet("BANDYTA!!!/{id}")]
+        public GameController(IGame Game) 
+        { 
+            _Game = Game; 
+        }
+
+        [HttpGet("BanditDescription/{id}")]
         public ActionResult BandytaInfo(int id)
         {
-           
             return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("czarny/{id}")]
+        [HttpGet("BlackJackDescription/{id}")]
         public ActionResult BlackInfo(int id)
         {
-            
             return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("ruledga/{id}")]
-        public ActionResult RulleteInfo(int id)
+        [HttpGet("Roulette/{id}")]
+        public ActionResult RouletteInfo(int id)
         {
-            
             return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("Gra/{id}")]
+        [HttpGet("Game/{id}")]
         public ActionResult GameInfo(int id)
         {
-            
             return Ok(_Game.GetGameInfo(id));
         }
     }

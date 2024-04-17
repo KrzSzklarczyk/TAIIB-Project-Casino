@@ -15,11 +15,22 @@ namespace Casino.Controllers
             this._result = res;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllResults/{userID},{gameID}")]
         public ActionResult GetResults(int userID, int gameID)
-        {
-          
+        { 
             return Ok(_result.GetResult(userID, gameID));
+        }
+
+        [HttpGet("GetUserResult/{userID}")]
+        public ActionResult GetResultsUser(int userID)
+        {
+            return Ok(_result.GetAllUserResults(userID));
+        }
+
+        [HttpGet("GetGameResult/{gameID}")]
+        public ActionResult GetResultsGame(int gameID)
+        {
+            return Ok(_result.GetAllGameResults(gameID));
         }
     }
 }

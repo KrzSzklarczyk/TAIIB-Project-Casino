@@ -24,14 +24,12 @@ namespace Casino.BLL_EF
         {
             var war = context.Games.FirstOrDefault(x => x.GameId == gameId); if (war == null) return null;
             return new GameDTO { BlackJackId = war.BlackJackId, Description = war.Description, GameId = war.GameId, BanditId = war.BanditId, EndDate = war.EndDate, MaxBet = war.MaxBet, MinBet = war.MinBet, ResultId = war.ResultId, RouletteId = war.RouletteId, StartDate = war.StartDate };
-
         }
 
         public RouletteDTO GetRouletteInfo(int gameId)
         {
             var war = context.Roulettes.FirstOrDefault(x => x.GameId == gameId); if (war == null) return null;
             return new RouletteDTO { RouletteId = war.RouletteId, Description = war.Description, GameId = war.GameId, BetType = war.BetType };
-
         }
     }
 }

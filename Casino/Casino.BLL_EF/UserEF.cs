@@ -22,18 +22,13 @@ namespace Casino.BLL_EF
             return new UserDTO { Credits = user.Credits, Email = user.Email, NickName = user.NickName, UserId = user.UserId, Results = res.GetAllUserResults(user.UserId).ToList(), Transactions = trans.GetHistory(user.UserId).ToList() };
         }
 
-        public void Logout()
-        {
-
-        }
-
         public UserDTO Register(UserDTO user)
         {
             var xd = _context.Users.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
             if (xd != null) return null;
             _context.Users.Add(new Model.User { Credits = 0, Email = user.Email, Login = user.Login, NickName = user.NickName, Password = user.Password, Results = null, Transactions = null });
-        
             _context.SaveChanges();
+
             return user;
         }
     }

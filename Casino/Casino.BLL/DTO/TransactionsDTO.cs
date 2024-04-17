@@ -10,9 +10,9 @@ namespace Casino.BLL.DTO
 {
     public class TransactionsDTO
     {
-        public int TransactionId { get; set; }
-        public int UserId { get; set; }
-        public DateTime Date { get; set; }
-        public double Amount { get; set; }
+        public int? TransactionId { get; set; }
+        public int? UserId { get; set; }
+        public DateTime? Date { get; set; }
+        public double? Amount { get; set; }
     }
 }

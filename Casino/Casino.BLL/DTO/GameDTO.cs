@@ -11,15 +11,15 @@ namespace Casino.BLL.DTO
 {
     public class GameDTO
     {
-        public int GameId { get; set; }
+        public int? GameId { get; set; }
         public int? ResultId { get; set; }
         public int? BlackJackId { get; set; }
         public int? RouletteId { get; set; }
         public int? BanditId { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int MaxBet { get; set; }
-        public int MinBet { get; set; }
+        public string? Description { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int? MaxBet { get; set; }
+        public int? MinBet { get; set; }
     }
 }

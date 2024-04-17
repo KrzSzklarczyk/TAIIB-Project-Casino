@@ -26,7 +26,7 @@ namespace Casino.Model
         {
             builder.HasOne(x => x.Game)
                 .WithOne(x => x.BlackJack)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

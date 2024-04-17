@@ -13,7 +13,7 @@ namespace Casino.BLL_EF
 {
     public class ResultEF : IResults
     {
-        public CasinoDbContext _context=new CasinoDbContext();
+        public CasinoDbContext _context = new CasinoDbContext();
         public IEnumerable<ResultDTO> GetAllGameResults(int gameId)
         {
             var help = _context.Results.Where(t => t.GameId == gameId);

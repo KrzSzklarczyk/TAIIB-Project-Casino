@@ -42,15 +42,15 @@ namespace Casino.Model
 
             builder.HasOne(x => x.BlackJack)
                 .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(x => x.Roulette)
                 .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(x => x.Bandit)
                 .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

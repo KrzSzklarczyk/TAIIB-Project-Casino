@@ -12,7 +12,6 @@ namespace Casino.DAL
         public DbSet<Roulette> Roulettes{ get; set; }
         public DbSet<BlackJack> BlackJacks{ get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -24,7 +23,7 @@ namespace Casino.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Game).Assembly);
         }
     }
-}S
+}
