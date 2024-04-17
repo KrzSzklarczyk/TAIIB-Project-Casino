@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Casino.Controllers
 {
     [ApiController]
-    [Route("[web/Transaction]")]
+    [Route("[controller]")]
     public class TransactionController : Controller
     {
         private readonly ITransactions _transactions;
@@ -13,12 +13,12 @@ namespace Casino.Controllers
         {
             this._transactions = t;
         }
-
+        [HttpGet("transakcje")]
         public ITransactions? Get_transactions()
         {
             return _transactions;
         }
-
+        
         [HttpPost("historia")]
         public ActionResult ViewHistory(int userId, ITransactions? _transactions)
         {

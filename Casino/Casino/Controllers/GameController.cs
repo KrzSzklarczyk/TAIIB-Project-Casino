@@ -6,35 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 namespace Casino.Controllers
 {
     [ApiController]
-    [Route("[web/games]")]
+    [Route("[controller]")]
     public class GameController : Controller
     {
         private readonly IGame _Game;
 
-       GameController(IGame Game) { _Game = Game; }
-        [HttpGet("BANDYTA!!!")]
-        public ActionResult BandytaInfo(BanditDTO bandyta)
+        GameController(IGame Game) { _Game = Game; }
+        [HttpGet("BANDYTA!!!/{id}")]
+        public ActionResult BandytaInfo(int id)
         {
            
-            return Ok(_Game.GetBanditInfo(bandyta.GameId));
+            return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("czarny")]
-        public ActionResult BlackInfo(BlackJackDTO black)
+        [HttpGet("czarny/{id}")]
+        public ActionResult BlackInfo(int id)
         {
             
-            return Ok(_Game.GetBanditInfo(black.GameId));
+            return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("ruledga")]
-        public ActionResult RulleteInfo(RouletteDTO ruletka)
+        [HttpGet("ruledga/{id}")]
+        public ActionResult RulleteInfo(int id)
         {
             
-            return Ok(_Game.GetBanditInfo(ruletka.GameId));
+            return Ok(_Game.GetBanditInfo(id));
         }
-        [HttpGet("Gra")]
-        public ActionResult GameInfo(GameDTO game)
+        [HttpGet("Gra/{id}")]
+        public ActionResult GameInfo(int id)
         {
             
-            return Ok(_Game.GetBanditInfo(game.GameId));
+            return Ok(_Game.GetBanditInfo(id));
         }
     }
 }

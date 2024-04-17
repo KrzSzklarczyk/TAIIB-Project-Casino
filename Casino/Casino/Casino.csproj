@@ -23,7 +23,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Casino.BLL\Casino.BLL.csproj" />
+    <ProjectReference Include="..\Casino.BLL_EF\Casino.BLL_EF.csproj" />
     <ProjectReference Include="..\Casino.DAL\Casino.DAL.csproj" />
+    <ProjectReference Include="..\Casino.Model\Casino.Model.csproj" />
   </ItemGroup>
 
 </Project>

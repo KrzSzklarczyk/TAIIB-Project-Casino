@@ -9,8 +9,8 @@ namespace Casino.BLL
 {
     public interface IResults
     {
-        ResultDTO GetResult(int userId, int gameId);
-        IEnumerable<ResultDTO> GetAllUserResults(int userId);
-        IEnumerable<ResultDTO> GetAllGameResults(int gameId);
+        public ResultDTO GetResult(int userId, int gameId);
+        public IEnumerable<ResultDTO> GetAllUserResults(int userId);
+        public IEnumerable<ResultDTO> GetAllGameResults(int gameId);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Casino.Controllers
 {
     [ApiController]
-    [Route("[web/account]")]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IUser _User;
