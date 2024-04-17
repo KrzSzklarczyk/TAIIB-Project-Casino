@@ -13,14 +13,14 @@ namespace Casino.BLL_EF
     public class UserEF : IUser
     {
         public UserEF(CasinoDbContext dbContext) { _context = dbContext; }
-        public UserEF() { }
-        private  static CasinoDbContext _context ;
+
+        private   CasinoDbContext _context ;
         public UserDTO Login(string username, string password)
         {
             var user = _context.Users.FirstOrDefault(x => x.Login == username && x.Password == password);
             if (user == null) return null;
-            var res = new ResultEF();
-            var trans = new TransactionsEF();
+            var res = new ResultEF(_context);
+            var trans = new TransactionsEF(_context);
             return new UserDTO { Credits = user.Credits, Email = user.Email, NickName = user.NickName, UserId = user.UserId, Results = res.GetAllUserResults(user.UserId).ToList(), Transactions = trans.GetHistory(user.UserId).ToList()};
         }
 

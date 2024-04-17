@@ -8,8 +8,8 @@ namespace Casino.BLL_EF
     public class GameEF : IGame
     {
         public GameEF(CasinoDbContext dbContext) { context = dbContext; }
-        public GameEF() {  }
-        private static CasinoDbContext context;
+  
+        private  CasinoDbContext context;
         public BanditDTO GetBanditInfo(int gameId)
         {
             var war = context.Bandits.FirstOrDefault(x => x.GameId == gameId);

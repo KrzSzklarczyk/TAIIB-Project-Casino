@@ -14,8 +14,8 @@ namespace Casino.BLL_EF
     public class ResultEF : IResults
     {
         public ResultEF(CasinoDbContext dbContext) { _context = dbContext; }
-        public ResultEF() { }
-        public static CasinoDbContext _context ;
+
+        public  CasinoDbContext _context ;
         public IEnumerable<ResultDTO> GetAllGameResults(int gameId)
         {
             var help = _context.Results.Where(t => t.GameId == gameId);

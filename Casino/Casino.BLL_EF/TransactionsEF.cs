@@ -8,11 +8,9 @@ namespace Casino.BLL_EF
     {
         public TransactionsEF(CasinoDbContext dbContext) { _context = dbContext; }
 
-        public TransactionsEF()
-        {
-        }
+ 
 
-        private static CasinoDbContext _context ;
+        private  CasinoDbContext _context ;
 
         public IEnumerable<TransactionsDTO> GetHistory(int userId)
         {
