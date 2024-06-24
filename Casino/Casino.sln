@@ -1,17 +1,17 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino", "Casino\Casino.csproj", "{FCD8F1B2-1F11-4CEC-ABAF-F9D0360EA07A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino", "Casino\Casino.csproj", "{FCD8F1B2-1F11-4CEC-ABAF-F9D0360EA07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.Model", "Casino.Model\Casino.Model.csproj", "{13DFC035-BF22-4A74-AD76-2C892BB06DBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.Model", "Casino.Model\Casino.Model.csproj", "{13DFC035-BF22-4A74-AD76-2C892BB06DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.DAL", "Casino.DAL\Casino.DAL.csproj", "{9D98154B-ECCD-44FC-9A95-2B1B64DA9482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.DAL", "Casino.DAL\Casino.DAL.csproj", "{9D98154B-ECCD-44FC-9A95-2B1B64DA9482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.BLL", "Casino.BLL\Casino.BLL.csproj", "{3B897EAB-4833-4BE0-B896-D2A7F821B1E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.BLL", "Casino.BLL\Casino.BLL.csproj", "{3B897EAB-4833-4BE0-B896-D2A7F821B1E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino.BLL_EF", "Casino.BLL_EF\Casino.BLL_EF.csproj", "{8834656C-D0D3-4ADE-95EC-B5820DE7B67D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casino.BLL_EF", "Casino.BLL_EF\Casino.BLL_EF.csproj", "{8834656C-D0D3-4ADE-95EC-B5820DE7B67D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
