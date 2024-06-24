@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL.DTO
 {
-    public class TransactionsDTO
+    public class TransactionsRequestDTO
     {
         public int? TransactionId { get; set; }
         public int? UserId { get; set; }
-        public DateTime? Date { get; set; }
-        public double? Amount { get; set; }
+
     }
 }

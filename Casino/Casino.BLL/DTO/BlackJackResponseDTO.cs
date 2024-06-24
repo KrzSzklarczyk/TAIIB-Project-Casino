@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL.DTO
 {
-    public class BlackJackDTO
+    public class BlackJackResponseDTO
     {
-        public int? BlackJackId { get; set; }
-        public int? GameId { get; set; }
-        public string? Description { get; set; }
-        public int? DealerHunt { get; set; }
-        public int? UserHunt { get; set; }
+      
+        public string Description { get; set; }
+        public int DealerHunt { get; set; }
+        public int UserHunt { get; set; }
     }
 }
