@@ -24,5 +24,6 @@ namespace Casino.Model
         public required string NickName { get; set; }
         public required int Credits { get; set; }
         public UserType UserType { get; set; }
+        public string Avatar {  get; set; }
     }
 }

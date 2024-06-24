@@ -15,7 +15,7 @@ namespace Casino.Controllers
             _transactions = t;
         }
 
-        [HttpGet("History/{userid}")]
+      /*  [HttpGet("History/{userid}")]
         public ActionResult ViewHistory(int userID)
         {
             var history = _transactions.GetHistory(userID);
@@ -27,6 +27,6 @@ namespace Casino.Controllers
         {
             var transtaction = _transactions.AddTransaction(transactions);
             return Ok(transtaction);
-        }
+        }*/
     }
 }

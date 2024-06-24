@@ -13,17 +13,14 @@ namespace Casino.Controllers
         { 
             _Game = Game; 
         }
-
+/*
         [HttpGet("BanditDescription/{id}")]
         public ActionResult BandytaInfo(int id)
         {
             return Ok(_Game.GetBanditInfo(id));
         }
         [HttpGet("BlackJackDescription/{id}")]
-        public ActionResult BlackInfo(int id)
-        {
-            return Ok(_Game.GetBanditInfo(id));
-        }
+        
         [HttpGet("Roulette/{id}")]
         public ActionResult RouletteInfo(int id)
         {
@@ -33,6 +30,6 @@ namespace Casino.Controllers
         public ActionResult GameInfo(int id)
         {
             return Ok(_Game.GetGameInfo(id));
-        }
+        }*/
     }
 }

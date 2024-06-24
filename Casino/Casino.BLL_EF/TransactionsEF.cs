@@ -12,19 +12,14 @@ namespace Casino.BLL_EF
 
         private  CasinoDbContext _context ;
 
-        public IEnumerable<TransactionsDTO> GetHistory(int userId)
+        public Task<List<TransactionsResponseDTO>> GetHistory(TransactionsRequestDTO id)
         {
-            var help = _context.Transactions.Where(t => t.UserId == userId);
-            List<TransactionsDTO> result = help.Select(x => new TransactionsDTO { Amount = x.Amount, UserId = x.UserId, Date = x.Date, TransactionId = x.TransactionId }).ToList();
-            return result;
+            throw new NotImplementedException();
         }
-        public bool AddTransaction(TransactionsDTO transaction)
+
+        public Task<bool> AddTransaction(int amount, UserRequestDTO user)
         {
-            Model.Transactions tran = new Model.Transactions { Amount = (double)transaction.Amount, UserId = (int)transaction.UserId, Date = (DateTime)transaction.Date, User = _context.Users.SingleOrDefault(x => x.UserId == transaction.UserId) };
-            _context.Transactions.Add(tran);
-            _context.Users.FirstOrDefault(x => x.UserId == transaction.UserId).Credits += (int)transaction.Amount;
-            _context.SaveChanges();
-            return true;
+            throw new NotImplementedException();
         }
     }
 }

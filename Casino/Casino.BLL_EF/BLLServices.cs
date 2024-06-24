@@ -19,10 +19,10 @@ namespace Casino.BLL_EF
 
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
-        //    services.AddScoped<IUsers, UserEF>();
-         //   services.AddScoped<IResults, ResultEF>();
-          //  services.AddScoped<IGame, GameEF>();
-         //   services.AddScoped<ITransactions, TransactionsEF>();
+           services.AddScoped<IUser, UserEF>();
+            services.AddScoped<IResults, ResultEF>();
+           services.AddScoped<IGame, GameEF>();
+          services.AddScoped<ITransactions, TransactionsEF>();
       
             services.AddAutoMapper(assembly);
 

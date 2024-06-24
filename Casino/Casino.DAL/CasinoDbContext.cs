@@ -10,7 +10,7 @@ namespace Casino.DAL
         public DbSet<Game> Games{ get; set; }
         public DbSet<Bandit> Bandits { get; set; }
         public DbSet<Roulette> Roulettes{ get; set; }
-        public DbSet<BlackJack> BlackJacks{ get; set; }
+      
 
         public CasinoDbContext(DbContextOptions<CasinoDbContext> dbContextOptions):base(dbContextOptions) { }
         public CasinoDbContext():base() { }

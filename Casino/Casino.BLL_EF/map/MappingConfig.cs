@@ -13,7 +13,7 @@ public class MappingConfig :Profile
     {
         public MappingConfig() { 
         CreateMap<BanditResponseDTO,Bandit>().ReverseMap();
-        CreateMap<BlackJackResponseDTO,BlackJack>().ReverseMap();
+       
         CreateMap<GameResponseDTO,Game>().ReverseMap();
         CreateMap<ResultResponseDTO, Result>().ReverseMap();
         CreateMap<RouletteResponseDTO, Roulette>().ReverseMap();

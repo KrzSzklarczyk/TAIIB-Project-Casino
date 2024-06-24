@@ -1,10 +1,13 @@
-﻿using Casino.BLL;
+﻿using AutoMapper;
+using Casino.BLL;
 using Casino.BLL.DTO;
 using Casino.DAL;
 using Casino.Model.DataTypes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,26 +15,30 @@ namespace Casino.BLL_EF
 {
     public class UserEF : IUser
     {
-        public UserEF(CasinoDbContext dbContext) { _context = dbContext; }
-
+        public UserEF(CasinoDbContext dbContext,IMapper mapper_,ClaimsPrincipal principal) { _context = dbContext; mapper = mapper_; claim = principal; }
+        public ClaimsPrincipal claim;
         private CasinoDbContext _context ;
-        public UserDTO Login(string username, string password)
+        private IMapper mapper;
+
+        public Task<UserResponseDTO> Login(UserRequestDTO user)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Login == username && x.Password == password);
-            if (user == null) return null;
-            var res = new ResultEF(_context);
-            var trans = new TransactionsEF(_context);
-            return new UserDTO { Credits = user.Credits, Email = user.Email, NickName = user.NickName, UserId = user.UserId, Results = res.GetAllUserResults(user.UserId).ToList(), Transactions = trans.GetHistory(user.UserId).ToList()};
+            return mapper.Map<Task<UserResponseDTO>>( _context.Users.FirstOrDefaultAsync(x=>x.Login==user.Login&&x.Password==user.Password));
         }
 
-        public UserDTO Register(UserDTO user)
+        public Task<UserResponseDTO> Register(UserRequestDTO user, UserResponseDTO dane)
         {
-            var xd = _context.Users.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
-            if (xd != null) return null;
-            _context.Users.Add(new Model.User { Credits = 0, Email = user.Email, Login = user.Login, NickName = user.NickName, Password = user.Password, Results = null, Transactions = null });
-            _context.SaveChanges();
+            throw new NotImplementedException();
+        }
 
-            return user;
+        public Task<int> GetCredits()
+        {
+            throw new NotImplementedException();
+
+        }
+
+        public Task<List<UserResponseDTO>> GetAllUsers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,9 +18,7 @@ namespace Casino.Model
         public int? ResultId { get; set; }
         [ForeignKey(nameof(ResultId))]
         public Result? Result { get; set; }
-        public int? BlackJackId { get; set; }
-        [ForeignKey(nameof(BlackJackId))]
-        public BlackJack? BlackJack { get; set; }
+       
         public int? RouletteId { get; set; }
         [ForeignKey(nameof(RouletteId))]
         public Roulette? Roulette{ get; set; }
@@ -40,9 +38,7 @@ namespace Casino.Model
                 .WithOne(x => x.Game)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(x => x.BlackJack)
-                .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.SetNull);
+           
 
             builder.HasOne(x => x.Roulette)
                 .WithOne(x => x.Game)

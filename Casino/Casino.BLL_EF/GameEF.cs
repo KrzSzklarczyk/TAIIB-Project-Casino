@@ -1,4 +1,5 @@
-﻿using Casino.BLL;
+﻿using AutoMapper;
+using Casino.BLL;
 using Casino.BLL.DTO;
 using Casino.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -7,32 +8,34 @@ namespace Casino.BLL_EF
 {
     public class GameEF : IGame
     {
-        public GameEF(CasinoDbContext dbContext) { context = dbContext; }
+        public GameEF(CasinoDbContext dbContext,IMapper _mapper) { context = dbContext;mapper = _mapper; }
   
         private  CasinoDbContext context;
-        public BanditDTO GetBanditInfo(int gameId)
+        private IMapper mapper;
+
+        public Task<GameResponseDTO> GetGameInfo(GameRequestDTO gameId)
         {
-            var war = context.Bandits.FirstOrDefault(x => x.GameId == gameId);
-            if (war == null) return null;
-            return new BanditDTO { BanditId = war.BanditId, Description = war.Description, GameId = war.GameId, Position1 = war.Position1, Position2 = war.Position2, Position3 = war.Position3 };
+            throw new NotImplementedException();
         }
 
-        public BlackJackDTO GetBlackJackInfo(int gameId)
+        public Task<BanditResponseDTO> GetBanditInfo(GameRequestDTO gameId)
         {
-            var war = context.BlackJacks.FirstOrDefault(x => x.GameId == gameId); if (war == null) return null;
-            return new BlackJackDTO { BlackJackId = war.BlackJackId, Description = war.Description, GameId = war.GameId, DealerHunt = war.DealerHunt, UserHunt = war.UserHunt };
+            throw new NotImplementedException();
         }
 
-        public GameDTO GetGameInfo(int gameId)
+        public Task<RouletteResponseDTO> GetRouletteInfo(GameRequestDTO gameId)
         {
-            var war = context.Games.FirstOrDefault(x => x.GameId == gameId); if (war == null) return null;
-            return new GameDTO { BlackJackId = war.BlackJackId, Description = war.Description, GameId = war.GameId, BanditId = war.BanditId, EndDate = war.EndDate, MaxBet = war.MaxBet, MinBet = war.MinBet, ResultId = war.ResultId, RouletteId = war.RouletteId, StartDate = war.StartDate };
+            throw new NotImplementedException();
         }
 
-        public RouletteDTO GetRouletteInfo(int gameId)
+        public Task<ResultResponseDTO> PlayBandit(UserRequestDTO user, BanditRequestDTO bandit)
         {
-            var war = context.Roulettes.FirstOrDefault(x => x.GameId == gameId); if (war == null) return null;
-            return new RouletteDTO { RouletteId = war.RouletteId, Description = war.Description, GameId = war.GameId, BetType = war.BetType };
+            throw new NotImplementedException();
+        }
+
+        public Task<ResultResponseDTO> PlayRoulette(UserRequestDTO user, RouletteRequestDTO roulette)
+        {
+            throw new NotImplementedException();
         }
     }
 }
