@@ -1,13 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './gui/header/header.component';
+import { FooterComponent } from './gui/footer/footer.component';
+import { GamesComponent } from './gui/games/games.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  styleUrls: ['./app.component.css'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    FooterComponent,
+    GamesComponent,
+  ],
 })
 export class AppComponent {
-  title = 'Casino.WebAngular';
+  title = 'casino-frontend';
+  userName: string = 'Krzysztof';
+  userCredits: number = 6000000;
 }
