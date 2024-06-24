@@ -4,7 +4,7 @@ using Casino.DAL;
 
 namespace Casino.BLL_EF
 {
-    public class TransactionsEF : ITransactions
+    public class TransactionsEF 
     {
         public TransactionsEF(CasinoDbContext dbContext) { _context = dbContext; }
 
@@ -12,7 +12,7 @@ namespace Casino.BLL_EF
 
         private  CasinoDbContext _context ;
 
-        public IEnumerable<TransactionsDTO> GetHistory(int userId)
+       /* public IEnumerable<TransactionsDTO> GetHistory(int userId)
         {
             var help = _context.Transactions.Where(t => t.UserId == userId);
             List<TransactionsDTO> result = help.Select(x => new TransactionsDTO { Amount = x.Amount, UserId = x.UserId, Date = x.Date, TransactionId = x.TransactionId }).ToList();
@@ -25,6 +25,6 @@ namespace Casino.BLL_EF
             _context.Users.FirstOrDefault(x => x.UserId == transaction.UserId).Credits += (int)transaction.Amount;
             _context.SaveChanges();
             return true;
-        }
+        }*/
     }
 }

@@ -9,7 +9,7 @@ namespace Casino.BLL
 {
     public interface ITransactions
     {
-        public IEnumerable<TransactionsDTO> GetHistory(int userId);
-        public bool AddTransaction(TransactionsDTO transaction);
+        public IEnumerable<TransactionsResponseDTO> GetHistory(TransactionsRequestDTO Id);
+        public bool AddTransaction(TransactionsResponseDTO transaction);
     }
 }

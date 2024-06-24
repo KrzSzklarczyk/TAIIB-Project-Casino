@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Casino.Model.DataTypes
 {
-    public enum UserType
+    public enum UserType 
     {
         User,
         Admin

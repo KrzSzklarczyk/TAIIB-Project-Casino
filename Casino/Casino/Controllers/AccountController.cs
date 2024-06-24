@@ -6,25 +6,25 @@ namespace Casino.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountController : ControllerBase
+    public class AccountController : Controller
     {
-        private readonly IUser _User;
+        private readonly IUsers _User;
 
-        public AccountController(IUser u)
+        public AccountController(IUsers u)
         {
             _User = u;
         }
 
-        [HttpPost("Login")]
-        public ActionResult Login(UserDTO user)
+       [HttpPost("Login")]
+        public ActionResult Login(UserRequestDTO user)
         {            
-            return Ok(_User.Login(user.Login, user.Password));
+            return Ok(_User.Login(user));
         }
-
+        /*
         [HttpPost("Register")]
-        public ActionResult Register(UserDTO user)
+        public ActionResult Register(UserRequestDTO user)
         {  
             return Ok(_User.Register(user));
-        }
+        }*/
     }
 }

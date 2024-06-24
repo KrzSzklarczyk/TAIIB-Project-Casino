@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL_EF
 {
-    public class ResultEF : IResults
+    public class ResultEF 
     {
-        public ResultEF(CasinoDbContext dbContext) { _context = dbContext; }
+     /*   public ResultEF(CasinoDbContext dbContext) { _context = dbContext; }
 
         public  CasinoDbContext _context ;
         public IEnumerable<ResultDTO> GetAllGameResults(int gameId)
@@ -37,6 +37,6 @@ namespace Casino.BLL_EF
             if (help == null) return null;
             var result = new ResultDTO { Amount = help.Amount, DateTime = help.DateTime, GameId = help.GameId, ResultId = help.ResultId, UserId = help.UserId };
             return result;
-        }
+        }*/
     }
 }

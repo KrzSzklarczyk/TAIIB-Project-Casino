@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Casino.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 namespace Casino.DAL
 {
-    public class CasinoDbContext : DbContext
+    public class CasinoDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Transactions> Transactions {  get; set; }
-        public DbSet<User> Users { get; set; }
+       
         public DbSet<Result> Results{ get; set; }
         public DbSet<Game> Games{ get; set; }
         public DbSet<Bandit> Bandits { get; set; }
