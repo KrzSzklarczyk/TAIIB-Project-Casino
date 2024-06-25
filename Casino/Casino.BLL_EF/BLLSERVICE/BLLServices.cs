@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Casino.BLL_EF
+namespace Casino.BLL_EF.BLLSERVICE
 {
     public static class BLLServices
     {
@@ -17,13 +17,13 @@ namespace Casino.BLL_EF
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddTransient(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
-           services.AddScoped<IUser, UserEF>();
+            services.AddScoped<IUser, UserEF>();
             services.AddScoped<IResults, ResultEF>();
-           services.AddScoped<IGame, GameEF>();
-          services.AddScoped<ITransactions, TransactionsEF>();
-      
+            services.AddScoped<IGame, GameEF>();
+            services.AddScoped<ITransactions, TransactionsEF>();
+
             services.AddAutoMapper(assembly);
 
             return services;

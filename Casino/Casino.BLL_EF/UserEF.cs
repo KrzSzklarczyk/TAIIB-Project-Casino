@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Casino.BLL;
+using Casino.BLL.Authentication;
 using Casino.BLL.DTO;
 using Casino.DAL;
 using Casino.Model;
@@ -20,12 +21,12 @@ namespace Casino.BLL_EF
 {
     public class UserEF : IUser
     {
-        public UserEF(CasinoDbContext dbContext,IMapper mapper_, AuthSettings set) { _context = dbContext; mapper = mapper_; _authenticationSettings = set; }
-        private CasinoDbContext _context ;
+        public UserEF(CasinoDbContext dbContext, IMapper mapper_, AuthSettings set) { _context = dbContext; mapper = mapper_; _authenticationSettings = set; }
+        private CasinoDbContext _context;
         private IMapper mapper;
         private readonly AuthSettings _authenticationSettings;
 
-        private string GetToken(User user)
+        internal string GetToken(User user)
         {
 
 
@@ -35,7 +36,7 @@ namespace Casino.BLL_EF
                 new Claim(ClaimTypes.Name, $"{user.NickName}"),
                 new Claim(ClaimTypes.Role, $"{user.UserType.ToString()}"),
                 new Claim(ClaimTypes.Email, user.Email),
-               
+
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
@@ -46,7 +47,7 @@ namespace Casino.BLL_EF
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private string GetRefreshToken()
+        internal string GetRefreshToken()
         {
             var randomNumber = new byte[64];
 
@@ -57,7 +58,7 @@ namespace Casino.BLL_EF
 
             return Convert.ToBase64String(randomNumber);
         }
-        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        internal ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParamters = new TokenValidationParameters()
             {
@@ -80,7 +81,7 @@ namespace Casino.BLL_EF
             }
             return principal;
         }
-        private UserTokenResponse CreateToken(User user, bool populateExp)
+        internal UserTokenResponse CreateToken(User user, bool populateExp)
         {
             var refreshToken = GetRefreshToken();
 
@@ -101,29 +102,102 @@ namespace Casino.BLL_EF
 
             return response;
         }
-        public UserTokenResponse LoginUser(UserRequestDTO dto, bool populateExp = true)
+        public UserTokenResponse Login(UserRequestDTO dto)
         {
-            var user = _context.Users.Include(u => u.UserType).FirstOrDefault(u => u.Login == dto.Login&&u.Password==dto.Password);
-           
-          if(user == null) { return null; }
+            var user = _context.Users.FirstOrDefault(u => u.Login == dto.Login && u.Password == dto.Password);
 
-            return CreateToken(user, populateExp);
+            if (user == null) { return null; }
+
+            return CreateToken(user, true);
         }
-        public void RegisterUser(UserRegisterDto dto)
+        public UserTokenResponse Register(UserRegisterRequestDTO dto)
         {
-            var newUser = _mapper.Map<User>(dto);
+            var newUser = new User { Credits = 0, Email = dto.Email , Login=dto.Login, NickName= dto.NickName , Password=dto.Password, Avatar=dto.Avatar, UserType=UserType.User};
+            if (_context.Users.FirstOrDefault(x => x.Login == dto.Login && x.Password == dto.Password) != null)
+                return null;
             _context.Users.Add(newUser);
             _context.SaveChanges();
+            return Login(mapper.Map<UserRequestDTO>(newUser));
         }
-        public Task<int> GetCredits()
+        public int GetCredits(UserTokenResponse token)
         {
-            throw new NotImplementedException();
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+            return user.Credits;
 
         }
 
-        public Task<List<UserResponseDTO>> GetAllUsers()
+        public List<UserResponseDTO>GetAllUsers(UserTokenResponse token)
         {
-            throw new NotImplementedException();
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow|| user.UserType!=UserType.Admin)
+            {
+                throw new SecurityTokenException();
+            }
+            return mapper.Map<List<UserResponseDTO>> (_context.Users.ToList());
+        }
+        public UserTokenResponse RefreshToken(UserTokenResponse token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+
+            return CreateToken(user, false);
+        }
+
+        public UserResponseDTO GetUserInfo(UserTokenResponse token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+            return mapper.Map<UserResponseDTO>( user);
         }
     }
 }

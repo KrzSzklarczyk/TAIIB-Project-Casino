@@ -19,9 +19,9 @@ public class MappingConfig :Profile
         CreateMap<RouletteResponseDTO, Roulette>().ReverseMap();
         CreateMap<TransactionsResponseDTO, Transactions>().ReverseMap();
         CreateMap<UserResponseDTO, User>().ReverseMap();
-         
 
-        CreateMap<GameRequestDTO,Game>().ReverseMap();
+          
+            CreateMap<GameRequestDTO,Game>().ReverseMap();
         CreateMap<ResultRequestDTO, Result>().ReverseMap();
       
         CreateMap<TransactionsRequestDTO, Transactions>().ReverseMap();

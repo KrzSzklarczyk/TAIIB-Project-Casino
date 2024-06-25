@@ -1,5 +1,6 @@
 using Casino.BLL;
 using Casino.BLL_EF;
+using Casino.BLL_EF.BLLSERVICE;
 using Casino.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
+using Casino.BLL.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +50,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddBLL();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddScoped<UserEF>();
 builder.Services.AddScoped<IUser,UserEF >();
 builder.Services.AddScoped<IGame,GameEF >();
 builder.Services.AddScoped<IResults,ResultEF >();

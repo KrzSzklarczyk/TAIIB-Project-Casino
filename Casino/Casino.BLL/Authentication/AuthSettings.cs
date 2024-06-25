@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Casino.BLL
+namespace Casino.BLL.Authentication
 {
     public class AuthSettings
     {
