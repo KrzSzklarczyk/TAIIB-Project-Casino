@@ -15,7 +15,7 @@ namespace Casino.Controllers
             this._result = res;
         }
 
-        [HttpGet("GetAllResults/{userID},{gameID}")]
+   /*     [HttpGet("GetAllResults/{userID},{gameID}")]
         public ActionResult GetResults(int userID, int gameID)
         { 
             return Ok(_result.GetResult(userID, gameID));
@@ -31,6 +31,6 @@ namespace Casino.Controllers
         public ActionResult GetResultsGame(int gameID)
         {
             return Ok(_result.GetAllGameResults(gameID));
-        }
+        }*/
     }
 }

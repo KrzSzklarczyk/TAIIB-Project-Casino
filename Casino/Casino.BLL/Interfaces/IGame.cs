@@ -9,9 +9,11 @@ namespace Casino.BLL
 {
     public interface IGame
     {
-        public GameDTO GetGameInfo(int gameId);
-        public BlackJackDTO GetBlackJackInfo(int gameId);
-        public BanditDTO GetBanditInfo(int gameId);
-        public RouletteDTO GetRouletteInfo(int gameId);
+        public Task<GameResponseDTO> GetGameInfo(GameRequestDTO gameId);
+       
+        public Task<BanditResponseDTO> GetBanditInfo(GameRequestDTO gameId);
+        public Task<RouletteResponseDTO> GetRouletteInfo(GameRequestDTO gameId);
+        public Task<ResultResponseDTO> PlayBandit(UserRequestDTO user, BanditRequestDTO bandit);
+        public Task<ResultResponseDTO> PlayRoulette(UserRequestDTO user, RouletteRequestDTO roulette);
     }
 }

@@ -2,19 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Casino.BLL.DTO
 {
-    public class BlackJackDTO
+    public class ResultRequestDTO
     {
-        public int? BlackJackId { get; set; }
+        public int? ResultId { get; set; }
+        public int? UserId { get; set; }
         public int? GameId { get; set; }
-        public string? Description { get; set; }
-        public int? DealerHunt { get; set; }
-        public int? UserHunt { get; set; }
+
     }
 }

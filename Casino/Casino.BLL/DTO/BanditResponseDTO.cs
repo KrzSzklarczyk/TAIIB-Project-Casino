@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace Casino.BLL.DTO
 {
-    public class RouletteDTO
+    public class BanditResponseDTO
     {
-        public int? RouletteId { get; set; }
-        public int? GameId { get; set; }
-        public string? Description { get; set; }
-        public BetType? BetType { get; set; }
+
+        public string Description { get; set; }
+        public BanditType Position1 { get; set; }
+        public BanditType Position2 { get; set; }
+        public BanditType Position3 { get; set; }
     }
 }
