@@ -16,7 +16,6 @@ import { RegisterComponent } from './gui/register/register.component';
 import { HelpsiteComponent } from './gui/helpsite/helpsite.component';
 import { MainComponent } from './gui/main/main.component';
 import { PromotionsComponent } from './gui/promotions/promotions.component';
-import { GameComponent } from './gui/main/games/game/game.component';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -31,9 +30,7 @@ export function tokenGetter() {
     RegisterComponent,
     HelpsiteComponent,
     MainComponent,
-    PromotionsComponent,
-    GameComponent
-    
+    PromotionsComponent, 
   ],
   imports: [
     BrowserModule,
