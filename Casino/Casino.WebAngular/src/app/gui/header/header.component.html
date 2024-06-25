@@ -1,0 +1,25 @@
+<header>
+  <ul class="header-list">
+    <li class="menu-icon">
+      <i class="fa fa-bars"></i>
+    </li>
+    <li class="logo">
+      <h1>Keep-Gambling Casino</h1>
+    </li>
+    <li class="nav-button">
+      <button>Help</button>
+    </li>
+    <li class="nav-button">
+      <button>Promotions</button>
+    </li>
+    <li class="user-info">
+      <span class="credits">{{ credits | number }}</span>
+      <span class="username" (click)="toggleDropdown()">Hello {{ userName }}</span>
+      <ul class="dropdown" *ngIf="isDropdownOpen">
+        <li><button>Profil</button></li>
+        <li><button>Wyloguj się</button></li>
+        <li><button>Zaloguj się</button></li>
+      </ul>
+    </li>
+  </ul>
+</header>
