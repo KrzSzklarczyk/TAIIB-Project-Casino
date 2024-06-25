@@ -1,16 +1,4 @@
-header {
-    min-height: 100px;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    background: linear-gradient(
-        to bottom,
-        #2c0a4c,
-        #450d80
-      );
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-  }
+
 
 .header-list {
   display: flex;
