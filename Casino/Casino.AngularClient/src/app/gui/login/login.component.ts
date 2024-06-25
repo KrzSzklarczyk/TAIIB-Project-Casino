@@ -13,11 +13,10 @@ import { LoginModel } from '../../models/login-model';
 })
 export class LoginComponent {
   form!: FormGroup;
-  invalidLogin: boolean = false; 
+  invalidLogin: boolean = false;
   isLoginMode: boolean = true;
   credentials: LoginModel = {Login:'', Password:''};
 
-  //credentials: LoginModel = {emailAddress:'', password:''};
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -30,9 +29,9 @@ export class LoginComponent {
         next: (response: AuthenticatedResponse) => {
           const token = response.accessToken;
           const refreshToken = response.refreshToken;
-          localStorage.setItem("accessToken", token); 
+          localStorage.setItem("accessToken", token);
           localStorage.setItem("refreshToken", refreshToken);
-          this.invalidLogin = false; 
+          this.invalidLogin = false;
           this.router.navigate(["/"]);
         },
         error: (err: HttpErrorResponse) => this.invalidLogin = true
@@ -40,5 +39,6 @@ export class LoginComponent {
     }
   }
 
-  
+
+
 }
