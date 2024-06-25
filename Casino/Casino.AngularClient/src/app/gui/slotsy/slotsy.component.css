@@ -1,0 +1,115 @@
+.slot-machine {
+    --icon-width: 79px;
+    --icon-height: 79px;
+    --num-icons: 9;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ustawia wysokość na całą wysokość ekranu */
+  }
+  
+  .slot-machine .debug {
+    position: fixed;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    font-family: monospace;
+    font-size: 1.6rem;
+  }
+  
+  .slot-machine .slots {
+    position: relative;
+    width: calc(4 * var(--icon-width)); /* Zwiększa szerokość, aby zrobić więcej miejsca między bębnami */
+    height: calc(3.5 * var(--icon-height)); /* Zwiększa wysokość, aby bębny nie wystawały na dole */
+    display: flex;
+    justify-content: space-around; /* Zmienia `space-between` na `space-around` aby dodać więcej miejsca między bębnami */
+    padding: calc(0.3 * var(--icon-width));
+    background: linear-gradient(45deg, grey 0%, lightgray 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
+    border-left: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    margin-bottom: 20px; /* Odstęp od przycisku */
+  }
+  
+  .slot-machine .slots::before,
+  .slot-machine .slots::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .slot-machine .slots::before {
+    left: 0;
+    transform: translate(-200%, -50%);
+  }
+  
+  .slot-machine .slots::after {
+    right: 0;
+    transform: translate(200%, -50%);
+  }
+  
+  @keyframes win {
+    0% {
+      background: linear-gradient(45deg, orange 0%, yellow 100%);
+      box-shadow: 0 0 80px orange;
+    }
+    100% {
+      background: linear-gradient(45deg, grey 0%, lightgrey 100%);
+      box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .slot-machine .slots.win {
+    animation: win 200ms steps(2, end) infinite;
+  }
+  
+  .slot-machine .reel {
+    position: relative;
+    width: var(--icon-width);
+    height: calc(3 * var(--icon-height));
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+    background-image: url(https://assets.codepen.io/439000/slotreel.webp);
+    background-position: 0 0;
+    background-repeat: repeat-y;
+  }
+  
+  .slot-machine .reel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.4) 100%);
+    box-shadow: inset 0 0 6px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .slot-machine .control-btn {
+    width: 100px; /* Zmniejszenie szerokości przycisku */
+    height: 100px; /* Zmniejszenie wysokości przycisku */
+    border: none;
+    background-color: #3498db; /* Kolor tła przycisku */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10%; /* Zaokrąglenie przycisku */
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Odległość od prawej krawędzi */
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
