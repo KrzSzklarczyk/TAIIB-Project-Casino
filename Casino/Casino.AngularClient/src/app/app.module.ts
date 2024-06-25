@@ -12,6 +12,7 @@ import { GamesComponent } from './gui/games/games.component';
 import { LoginComponent } from './gui/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { RegisterComponent } from './register/register.component';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -22,7 +23,8 @@ export function tokenGetter() {
     FooterComponent,
     HeaderComponent,
     GamesComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
     
   ],
   imports: [
