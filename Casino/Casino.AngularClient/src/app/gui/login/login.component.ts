@@ -16,26 +16,4 @@ export class LoginComponent {
 
   //credentials: LoginModel = {emailAddress:'', password:''};
 
-  constructor(private router: Router, private http: HttpClient) { }
-
-  login = ( form: NgForm) => {
-    if (form.valid) {
-      this.http.post<AuthenticatedResponse>("http://localhost:5080/api/account/login", this.credentials, {
-        headers: new HttpHeaders({ "Content-Type": "application/json"})
-      })
-      .subscribe({
-        next: (response: AuthenticatedResponse) => {
-          const token = response.accessToken;
-          const refreshToken = response.refreshToken;
-          localStorage.setItem("accessToken", token); 
-          localStorage.setItem("refreshToken", refreshToken);
-          this.invalidLogin = false; 
-          this.router.navigate(["/"]);
-        },
-        error: (err: HttpErrorResponse) => this.invalidLogin = true
-      })
-    }
-  }
-
-  
 }
