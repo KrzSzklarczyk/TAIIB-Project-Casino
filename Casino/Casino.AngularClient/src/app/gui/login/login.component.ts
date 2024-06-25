@@ -17,7 +17,6 @@ export class LoginComponent {
   isLoginMode: boolean = true;
   credentials: LoginModel = {Login:'', Password:''};
 
-
   constructor(private router: Router, private http: HttpClient) { }
 
   login = ( form: NgForm) => {

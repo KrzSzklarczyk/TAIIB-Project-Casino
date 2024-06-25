@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { AuthenticatedResponse } from '../models/authenticated-response';
-import { UserRegisterRequestDTO } from '../models/register-model';
+import { AuthenticatedResponse } from '../../models/authenticated-response';
+import { UserRegisterRequestDTO } from '../../models/register-model';
 
 @Component({
   selector: 'app-register',
