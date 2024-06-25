@@ -18,7 +18,7 @@ export class HeaderComponent  implements OnInit, OnDestroy{
     this.intervalId = setInterval(() => {
       this.getUsrName();
       this.getCredits();
-    }, 1000);
+    }, 100);
   }
   ngOnDestroy() {
     if (this.intervalId) {
@@ -41,7 +41,7 @@ getUsrName()
 {this.cred.accessToken=localStorage.getItem("accessToken")??'';
 this.cred.refreshToken=localStorage.getItem("refreshToken")??'';
 
-  if(this.cred.accessToken==''||this.cred.refreshToken=='')this.userName='?????????'
+  if(this.cred.accessToken==''||this.cred.refreshToken=='')this.userName='anonymous'
   else{
   this.http.post<UserResponseDTO>("https://localhost:7063/Account/getUserInfo", this.cred, {
     headers: new HttpHeaders({ "Content-Type": "application/json"})
