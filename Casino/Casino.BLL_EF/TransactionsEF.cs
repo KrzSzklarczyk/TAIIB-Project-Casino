@@ -1,25 +1,72 @@
-﻿using Casino.BLL;
+﻿using AutoMapper;
+using Casino.BLL;
+using Casino.BLL.Authentication;
 using Casino.BLL.DTO;
 using Casino.DAL;
+using Casino.Model;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace Casino.BLL_EF
 {
     public class TransactionsEF : ITransactions
     {
-        public TransactionsEF(CasinoDbContext dbContext) { _context = dbContext; }
-
- 
-
-        private  CasinoDbContext _context ;
-
-        public Task<List<TransactionsResponseDTO>> GetHistory(TransactionsRequestDTO id)
+        public TransactionsEF(CasinoDbContext dbContext, UserEF use, IMapper map)
         {
-            throw new NotImplementedException();
+            _context = dbContext;
+            this.use = use;
+            mapper = map;
+        }
+        public UserEF use;
+        public CasinoDbContext _context;
+        public IMapper mapper;
+
+        public List<TransactionsResponseDTO> GetHistory(TransactionsRequestDTO id, UserTokenResponse token)
+        {
+            var principal = use.GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow || (user.UserId != id.UserId && user.UserType != Model.DataTypes.UserType.Admin))
+            {
+                throw new SecurityTokenException();
+            }
+            var wyn= _context.Transactions.Where(x=>x.UserId== id.UserId).ToList();
+            return wyn == null ? null : mapper.Map<List<TransactionsResponseDTO>>(wyn);
+
         }
 
-        public Task<bool> AddTransaction(int amount, UserRequestDTO user)
+        public bool AddTransaction(int amount,  UserTokenResponse token)
         {
-            throw new NotImplementedException();
+            var principal = use.GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow )
+            {
+                throw new SecurityTokenException();
+            }
+            var kek = new Transactions { Amount = amount, Date = DateTime.UtcNow, User = user };
+            user.Credits += amount;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return true;
+            
+
         }
     }
 }

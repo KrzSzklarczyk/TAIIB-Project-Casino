@@ -1,6 +1,9 @@
 ﻿
 using Casino.BLL;
+using Casino.BLL.Authentication;
+using Casino.BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Casino.Controllers
 {
@@ -15,22 +18,30 @@ namespace Casino.Controllers
             this._result = res;
         }
 
-   /*     [HttpGet("GetAllResults/{userID},{gameID}")]
-        public ActionResult GetResults(int userID, int gameID)
+      [HttpGet("GetAllResults/{userID},{gameID}")]
+        public ActionResult GetResults(int userID, int gameID, [FromBody]UserTokenResponse toekn )
         { 
-            return Ok(_result.GetResult(userID, gameID));
+            var rez = new ResultRequestDTO { UserId=userID,GameId=gameID };
+            var odp = _result.GetResult(rez,toekn);
+            return odp==null?BadRequest("bledne dane lub brak"): Ok (odp);
         }
 
         [HttpGet("GetUserResult/{userID}")]
-        public ActionResult GetResultsUser(int userID)
+        public ActionResult GetResultsUser(int userID, [FromBody] UserTokenResponse toekn)
         {
-            return Ok(_result.GetAllUserResults(userID));
+            var rez = new ResultRequestDTO { UserId = userID };
+            var odp = _result.GetAllUserResults(rez, toekn);
+            return odp == null ? BadRequest("bledne dane lub brak") : Ok(odp);
+            
         }
 
         [HttpGet("GetGameResult/{gameID}")]
-        public ActionResult GetResultsGame(int gameID)
+        public ActionResult GetResultsGame(int gameID, [FromBody] UserTokenResponse toekn)
         {
-            return Ok(_result.GetAllGameResults(gameID));
-        }*/
+            var rez = new ResultRequestDTO {  GameId = gameID };
+            var odp = _result.GetAllGameResults(rez, toekn);
+            return odp == null ? BadRequest("bledne dane lub brak") : Ok(odp);
+            
+        }
     }
 }

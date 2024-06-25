@@ -1,4 +1,5 @@
-﻿using Casino.BLL.DTO;
+﻿using Casino.BLL.Authentication;
+using Casino.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Casino.BLL
 {
     public interface ITransactions
     {
-        public Task<List<TransactionsResponseDTO>> GetHistory(TransactionsRequestDTO id);
-        public Task<bool> AddTransaction(int amount,UserRequestDTO user);
+        public List<TransactionsResponseDTO> GetHistory(TransactionsRequestDTO id, UserTokenResponse token);
+        public bool AddTransaction(int amount, UserTokenResponse token);
     }
 }
