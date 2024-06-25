@@ -32,7 +32,7 @@ namespace Casino.Controllers
                     audience: "http://localhost:5000",
                     claims: new List<Claim>{
                         new Claim(JwtRegisteredClaimNames.Sub,use.Email),
-                        new Claim("userId", use.UserId),
+                       
                         new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                         
                     },

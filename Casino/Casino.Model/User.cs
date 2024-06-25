@@ -25,5 +25,7 @@ namespace Casino.Model
         public required int Credits { get; set; }
         public UserType UserType { get; set; }
         public string Avatar {  get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryDate { get; set; }
     }
 }
