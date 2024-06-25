@@ -1,1 +1,34 @@
-<p>register works!</p>
+
+<h2 class="title"> {{  'Rejestracja' }}</h2>
+<div class="login-container">
+  <form #loginForm="ngForm" (ngSubmit)="rejestracja(loginForm)">
+      <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+      <br/>
+      <div class="form-group">
+          <label for="username" class="sr-only">Username</label>
+          <input type="email" id="username" name="username" [(ngModel)]="credentials.login"
+            class="form-control" placeholder="User Name" required>
+      </div>
+      <div class="form-group">
+          <label for="Password" class="sr-only">Password</label>
+          <input type="Password" id="Password" name="Password" [(ngModel)]="credentials.password"
+            class="form-control" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <label for="email" class="sr-only">email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="credentials.email"
+          class="form-control" placeholder="email" required>
+    </div>
+    <div class="form-group">
+      <label for="avatar" class="sr-only">avatar</label>
+      <input type="avatar" id="avatar" name="avatar" [(ngModel)]="credentials.avatar"
+        class="form-control" placeholder="avatar" required>
+  </div>
+  <div class="form-group">
+    <label for="nickName" class="sr-only">nickName</label>
+    <input type="nickName" id="nickName" name="nickName" [(ngModel)]="credentials.nickName"
+      class="form-control" placeholder="nickName" required>
+</div>
+      <button class="btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Log in</button>
+  </form>
+</div>
