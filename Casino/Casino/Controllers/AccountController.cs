@@ -1,4 +1,5 @@
 ﻿using Casino.BLL;
+using Casino.BLL.Authentication;
 using Casino.BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -20,37 +21,46 @@ namespace Casino.Controllers
         }
 
         [HttpPost,Route("Login")]
-        public async Task<IActionResult> Login([FromBody] UserRequestDTO user)
+        public  IActionResult Login([FromBody] UserRequestDTO user)
         {            
-            if (user == null) { return BadRequest("Invalid client request"); }
-            var use = await _User.Login(user);
-        if (use!=null)
-            {
-                var seckey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JanPawelPedofil"));
-                var signCred=new SigningCredentials(seckey,SecurityAlgorithms.HmacSha256);
-                var tokeOptions = new JwtSecurityToken(issuer: "http://localhost:5000",
-                    audience: "http://localhost:5000",
-                    claims: new List<Claim>{
-                        new Claim(JwtRegisteredClaimNames.Sub,use.Email),
-                       
-                        new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                        
-                    },
-                    expires: DateTime.Now.AddMinutes(5)
-                    , signingCredentials: signCred);
-                var token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Ok(new { Token = token });
-
-            }
-        return Unauthorized();
+            var xd=_User.Login(user);
+            if (xd != null) { return Ok(xd); }
+            return BadRequest("User nie istnieje");
         
         }
-        
 
-       /* [HttpPost("Register")]
-        public ActionResult Register(UserRequestDTO user,UserResponseDTO dane)
-        {  
-            return Ok(_User.Register(user));
-        }*/
+
+        [HttpPost, Route("register")]
+        public IActionResult Register([FromBody] UserRegisterRequestDTO user)
+        {
+            var xd = _User.Register(user);
+            if (xd != null) { return Ok( xd); }
+            return BadRequest("Bladne dane albo user juz istnieje");
+
+        }
+        [HttpPost("refresh")]
+        public ActionResult Refresh([FromBody] UserTokenResponse token)
+        {
+            var refreshToken = _User.RefreshToken(token);
+            return Ok(refreshToken);
+        }
+        [HttpPost("getCredits")]
+        public ActionResult getCredits([FromBody] UserTokenResponse token)
+        {
+            var refreshToken = _User.GetCredits(token);
+            return Ok(refreshToken);
+        }
+        [HttpPost("getAllUsers")]
+        public ActionResult getusers([FromBody] UserTokenResponse token)
+        {
+            var refreshToken = _User.GetAllUsers(token);
+            return Ok(refreshToken);
+        }
+        [HttpPost("getUserInfo")]
+        public ActionResult getuserInfo([FromBody] UserTokenResponse token)
+        {
+            var refreshToken = _User.GetUserInfo(token);
+            return Ok(refreshToken);
+        }
     }
 }
