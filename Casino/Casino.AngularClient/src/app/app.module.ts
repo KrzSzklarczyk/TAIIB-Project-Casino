@@ -6,13 +6,17 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './gui/footer/footer.component';
-import { HeaderComponent } from './gui/header/header.component';
-import { GamesComponent } from './gui/games/games.component';
+import { FooterComponent } from './gui/shared/footer/footer.component';
+import { HeaderComponent } from './gui/shared/header/header.component';
+import { GamesComponent } from './gui/main/games/games.component';
 import { LoginComponent } from './gui/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './gui/register/register.component';
+import { HelpsiteComponent } from './gui/helpsite/helpsite.component';
+import { MainComponent } from './gui/main/main.component';
+import { PromotionsComponent } from './gui/promotions/promotions.component';
+import { GameComponent } from './gui/main/games/game/game.component';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -24,7 +28,11 @@ export function tokenGetter() {
     HeaderComponent,
     GamesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HelpsiteComponent,
+    MainComponent,
+    PromotionsComponent,
+    GameComponent
     
   ],
   imports: [
