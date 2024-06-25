@@ -18,7 +18,7 @@ namespace Casino.Controllers
             this._result = res;
         }
 
-      [HttpGet("GetAllResults/{userID},{gameID}")]
+      [HttpPost("GetAllResults/{userID},{gameID}")]
         public ActionResult GetResults(int userID, int gameID, [FromBody]UserTokenResponse toekn )
         { 
             var rez = new ResultRequestDTO { UserId=userID,GameId=gameID };
@@ -26,7 +26,7 @@ namespace Casino.Controllers
             return odp==null?BadRequest("bledne dane lub brak"): Ok (odp);
         }
 
-        [HttpGet("GetUserResult/{userID}")]
+        [HttpPost("GetUserResult/{userID}")]
         public ActionResult GetResultsUser(int userID, [FromBody] UserTokenResponse toekn)
         {
             var rez = new ResultRequestDTO { UserId = userID };
@@ -35,7 +35,7 @@ namespace Casino.Controllers
             
         }
 
-        [HttpGet("GetGameResult/{gameID}")]
+        [HttpPost("GetGameResult/{gameID}")]
         public ActionResult GetResultsGame(int gameID, [FromBody] UserTokenResponse toekn)
         {
             var rez = new ResultRequestDTO {  GameId = gameID };
