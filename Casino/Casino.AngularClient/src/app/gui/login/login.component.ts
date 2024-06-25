@@ -1,8 +1,10 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import{AuthenticatedResponse} from "../../models/authenticated-response";
+import { LoginModel } from '../../models/login-model';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ export class LoginComponent {
   form!: FormGroup;
   invalidLogin: boolean = false; 
   isLoginMode: boolean = true;
+  credentials: LoginModel = {Login:'', Password:''};
 
   //credentials: LoginModel = {emailAddress:'', password:''};
 
@@ -20,7 +23,7 @@ export class LoginComponent {
 
   login = ( form: NgForm) => {
     if (form.valid) {
-      this.http.post<AuthenticatedResponse>("http://localhost:5080/api/account/login", this.credentials, {
+      this.http.post<AuthenticatedResponse>("https://localhost:7063/Account/Login", this.credentials, {
         headers: new HttpHeaders({ "Content-Type": "application/json"})
       })
       .subscribe({
