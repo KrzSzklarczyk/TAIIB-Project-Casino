@@ -5,12 +5,14 @@ import { HelpsiteComponent } from './gui/helpsite/helpsite.component';
 import { RegisterComponent } from './gui/register/register.component';
 import { PromotionsComponent } from './gui/promotions/promotions.component';
 import { MainComponent } from './gui/main/main.component';
+import { SlotsyComponent } from './gui/slotsy/slotsy.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'helpsite', component: HelpsiteComponent },
   { path: 'promotions', component: PromotionsComponent },
+  { path: 'slotsy', component: SlotsyComponent },
   { path: '', component: MainComponent },
 ];
 
