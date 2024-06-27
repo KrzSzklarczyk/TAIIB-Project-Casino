@@ -25,8 +25,8 @@ export class HeaderComponent  implements OnInit, OnDestroy{
       clearInterval(this.intervalId);
     }
   }
-  @Input() userName: string = 'Krzysztof';
-  @Input() credits: number = 6000000;
+  @Input() userName: string = 'anonymous';
+  @Input() credits: number = 0;
   isDropdownOpen = false;
   cred :AuthenticatedResponse ={accessToken:localStorage.getItem("accessToken")??'',refreshToken:localStorage.getItem("refreshToken")??''};
   toggleDropdown() {
