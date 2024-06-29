@@ -200,7 +200,7 @@ namespace Casino.BLL_EF
             return mapper.Map<UserResponseDTO>( user);
         }
 
-        public String GetUserRole(UserTokenResponse token)
+        public int GetUserRole(UserTokenResponse token)
         {
             var principal = GetPrincipalFromExpiredToken(token.AccessToken);
             var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
@@ -217,7 +217,9 @@ namespace Casino.BLL_EF
             {
                 throw new SecurityTokenException();
             }
-            return user.UserType.ToString();
+            if (user.UserType == UserType.Admin)
+                return 1;
+            return 0;
         }
     }
 }

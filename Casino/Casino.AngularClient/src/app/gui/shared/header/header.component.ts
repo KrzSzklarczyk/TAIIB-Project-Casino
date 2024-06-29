@@ -6,7 +6,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { UserResponseDTO } from '../../../models/user.models';
-import { UserRole } from "../../../models/UserRole";
+import { UserType } from "../../../models/UserRole";
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
 
 @Component({
@@ -18,18 +18,17 @@ import { AuthenticatedResponse } from '../../../models/authenticated-response';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() userName: string = '';
   @Input() credits: number = 0;
-  @Input() rola: String ='';
   isDropdownOpen = false;
-  userRoleEnum: typeof UserRole = UserRole
-  userRole: UserRole | undefined = undefined
+  
+  @Input()  userRole: UserType =UserType.User;
   constructor(private authService: AuthService, private http: HttpClient) {}
   intervalId: any;
   ngOnInit() {
     // Call the methods every second
     this.intervalId = setInterval(() => {
       this.getUsrName();
-      this.getCredits();
-      this.getUserRole();
+    //  this.getCredits();
+   //   this.getUserRole();
     }, 100);
   }
 
@@ -53,8 +52,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
 
-    if (this.cred.accessToken == '' || this.cred.refreshToken == '')
+    if (this.cred.accessToken == '' || this.cred.refreshToken == ''){
       this.userName = 'anonymous';
+    this.credits=0;
+    this.userRole=UserType.User;
+    }
     else {
       this.http
         .post<UserResponseDTO>(
@@ -67,10 +69,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response: UserResponseDTO) => {
             this.userName = response.nickName;
+            this.credits=response.credits;
+            this.userRole=response.userType;
           },
         });
     }
-  }
+  }/*
   getCredits() {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     {
@@ -99,9 +103,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     {
       this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-      if (!(this.cred.accessToken == '' || this.cred.refreshToken == ''))
+      if ((this.cred.accessToken == '' || this.cred.refreshToken == ''))
+        this.userRole=0
+      else{
         this.http
-        .post<String>(
+        .post<number>(
           'https://localhost:7063/Account/GetUserRole',
           this.cred,
           {
@@ -109,13 +115,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         )
         .subscribe({
-          next: (response: String) => {
-            this.rola = response;
+          next: (response: number) => {
+            this.userRole = response;
           },
       });
-    }
+    }}
   }
-  
+  */
   logOut() {
     this.authService.logOut();
   }

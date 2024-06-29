@@ -17,7 +17,7 @@ namespace Casino.BLL
         public UserResponseDTO GetUserInfo(UserTokenResponse token);
         public UserTokenResponse RefreshToken(UserTokenResponse token);
         public List<UserResponseDTO> GetAllUsers(UserTokenResponse token);
-        public String GetUserRole(UserTokenResponse token);
+        public int GetUserRole(UserTokenResponse token);
         
     }
 }

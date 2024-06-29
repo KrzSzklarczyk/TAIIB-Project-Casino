@@ -12,7 +12,7 @@
     <li class="nav-button">
       <button class="promo-button" routerLink="/promotions">Promotions</button>
     </li>
-    Rola: {{rola}}
+    Rola: {{userRole}}
     <li class="user-info">
       <mat-checkbox>Check me!</mat-checkbox>
       <mat-divider></mat-divider>
@@ -20,7 +20,7 @@
         <mat-icon class="icon-account">account_circle</mat-icon>
       </button>
       <span class="credits">{{ credits | number }}</span>
-      <span class="username" (click)="toggleDropdown(); getCredits()"
+      <span class="username" (click)="toggleDropdown()"
         >Hello {{ userName }}</span
       >
       <ul class="dropdown" *ngIf="isDropdownOpen">
@@ -44,16 +44,16 @@
         </li>
         <li>
           <button
-          *ngIf="rola"
+          *ngIf="userRole"
             class="login-button"
             routerLink="/register"
           >
-            {{rola}}
+            {{userRole}}
           </button>
         </li>
         <li>
-          <button (click)="getUserRole()">
-          xd{{rola}}
+          <button (click)="getUsrName()">
+          xd{{userRole}}
           </button>
         </li>
         <li>
