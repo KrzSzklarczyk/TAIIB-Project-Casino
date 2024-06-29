@@ -199,5 +199,25 @@ namespace Casino.BLL_EF
             }
             return mapper.Map<UserResponseDTO>( user);
         }
+
+        public String GetUserRole(UserTokenResponse token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+            return user.UserType.ToString();
+        }
     }
 }

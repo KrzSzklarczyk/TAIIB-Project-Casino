@@ -18,5 +18,6 @@ namespace Casino.BLL.DTO
         public string NickName { get; set; }
         public string Avatar { get; set; }
         public int Credits { get; set; }
+        public UserType UserType { get; set; }
     }
 }

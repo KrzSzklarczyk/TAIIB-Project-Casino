@@ -62,5 +62,12 @@ namespace Casino.Controllers
             var refreshToken = _User.GetUserInfo(token);
             return Ok(refreshToken);
         }
+
+        [HttpPost("GetUserRole")]
+        public ActionResult GetUserRole([FromBody] UserTokenResponse token)
+        {
+            var refreshToken = _User.GetUserRole(token);
+            return Ok(refreshToken.ToString());
+        }
     }
 }

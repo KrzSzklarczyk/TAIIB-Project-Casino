@@ -1,29 +1,67 @@
 <header>
-    <ul class="header-list">
-      <li class="menu-icon">
-        <i class="fa fa-bars"></i>
-      </li>
-      <li class="logo">
-        <span routerLink="">Keep Gambling Casino</span>
-      </li>
-      <li class="nav-button">
-        <button class="help-button" routerLink="/helpsite">Help</button>
-      </li>
-      <li class="nav-button">
-        <button class="promo-button" routerLink="/promotions">Promotions</button>
-      </li>
-      <li class="user-info">
-        <span class="credits" >{{ credits | number }}</span>
-        <span class="username" (click)="toggleDropdown();getCredits()">Hello {{ userName }}</span>
-        <ul class="dropdown" *ngIf="isDropdownOpen">
-          
-            <li><button *ngIf="!this.isUserAuthenticated()" class="login-button" routerLink="/login">Login</button></li>
-            <li><button *ngIf="!this.isUserAuthenticated()" class="login-button" routerLink="/register">Register</button></li>
-            <li><button *ngIf="this.isUserAuthenticated()" (click)="logOut()"   >logout</button></li>
-
-
-        </ul>
-      </li>
-    </ul>
-  </header>
-  
+  <ul class="header-list">
+    <li class="menu-icon">
+      <i class="fa fa-bars"></i>
+    </li>
+    <li class="logo">
+      <span routerLink="">Keep Gambling Casino</span>
+    </li>
+    <li class="nav-button">
+      <button class="help-button" routerLink="/helpsite">Help</button>
+    </li>
+    <li class="nav-button">
+      <button class="promo-button" routerLink="/promotions">Promotions</button>
+    </li>
+    Rola: {{rola}}
+    <li class="user-info">
+      <mat-checkbox>Check me!</mat-checkbox>
+      <mat-divider></mat-divider>
+      <button mat-button>
+        <mat-icon class="icon-account">account_circle</mat-icon>
+      </button>
+      <span class="credits">{{ credits | number }}</span>
+      <span class="username" (click)="toggleDropdown(); getCredits()"
+        >Hello {{ userName }}</span
+      >
+      <ul class="dropdown" *ngIf="isDropdownOpen">
+        <li>
+          <button
+            *ngIf="!this.isUserAuthenticated()"
+            class="login-button"
+            routerLink="/login"
+          >
+            Login
+          </button>
+        </li>
+        <li>
+          <button
+            *ngIf="!this.isUserAuthenticated()"
+            class="login-button"
+            routerLink="/register"
+          >
+            Register
+          </button>
+        </li>
+        <li>
+          <button
+          *ngIf="rola"
+            class="login-button"
+            routerLink="/register"
+          >
+            {{rola}}
+          </button>
+        </li>
+        <li>
+          <button (click)="getUserRole()">
+          xd{{rola}}
+          </button>
+        </li>
+        <li>
+          <button *ngIf="this.isUserAuthenticated()" (click)="logOut()">
+            logout
+          </button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</header>

@@ -18,7 +18,6 @@ export class UserService {
   validateHTML(form: FormGroup, field: string, error: string, excludeErrors: string[] = []): boolean {
     const hasError = form.get(field)?.hasError(error);
     const excludedErrors = excludeErrors.some(excludeError => form.get(field)?.hasError(excludeError));
-
     return !!hasError && !excludedErrors;
   }
 }

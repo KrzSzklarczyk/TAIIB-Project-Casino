@@ -1,5 +1,6 @@
 ﻿using Casino.BLL.Authentication;
 using Casino.BLL.DTO;
+using Casino.Model.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,9 @@ namespace Casino.BLL
         public UserTokenResponse Register(UserRegisterRequestDTO user);
         public int GetCredits(UserTokenResponse token);
         public UserResponseDTO GetUserInfo(UserTokenResponse token);
-        public   UserTokenResponse RefreshToken(UserTokenResponse token);
+        public UserTokenResponse RefreshToken(UserTokenResponse token);
         public List<UserResponseDTO> GetAllUsers(UserTokenResponse token);
+        public String GetUserRole(UserTokenResponse token);
         
     }
 }

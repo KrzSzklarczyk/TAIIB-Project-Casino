@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'casino-frontend';
-  userName: string = 'Krzysztof';
-  userCredits: number = 6000000;
 }
