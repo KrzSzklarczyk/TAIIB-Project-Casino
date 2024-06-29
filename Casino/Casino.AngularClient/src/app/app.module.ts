@@ -20,6 +20,13 @@ import { SlotsyComponent } from './gui/slotsy/slotsy.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import { AdminPanelUserComponent } from './gui/admin-panel/admin-panel-user/admin-panel-user.component';
+import { AdminPanelFinanceComponent } from './gui/admin-panel/admin-panel-finance/admin-panel-finance.component';
+import { ProfileComponent } from './gui/user-panel/profile/profile.component';
+import { MatchHistoryComponent } from './gui/user-panel/match-history/match-history.component';
+import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
+
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -35,7 +42,12 @@ export function tokenGetter() {
     HelpsiteComponent,
     MainComponent,
     PromotionsComponent,
-    SlotsyComponent, 
+    SlotsyComponent,
+    AdminPanelUserComponent,
+    AdminPanelFinanceComponent,
+    ProfileComponent,
+    MatchHistoryComponent,
+    TransactionComponent, 
   ],
   imports: [
     BrowserModule,
@@ -48,6 +60,7 @@ export function tokenGetter() {
     MatCheckboxModule,
     MatDividerModule,
     MatIconModule,
+    MatMenuModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

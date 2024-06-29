@@ -193,10 +193,10 @@ namespace Casino.BLL_EF
             var userId = int.Parse(userIdClaim.Value);
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
 
-            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+/*            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
             {
                 throw new SecurityTokenException();
-            }
+            }*/
             return mapper.Map<UserResponseDTO>( user);
         }
 

@@ -17,6 +17,26 @@
   color: #ffffff;
 }
 
+.ikona-admin {
+  position: relative;
+  margin: 15px;
+
+  margin-right: 35px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  border: none;
+  transform: scale(2);
+}
+
+.ikona {
+  position: relative;
+  margin: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  border: none;
+  transform: scale(2);
+}
+
 .logo {
   margin-right: 15px;
   color: #ffffff;
@@ -24,7 +44,6 @@
   background-color: transparent;
   cursor: pointer;
 }
-
 
 .logo button {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -42,8 +61,15 @@
   margin-right: 15px;
 }
 
+
+
 .nav-button button:hover {
   background-color: #cc2900;
+}
+
+.xdd{
+  background-color: #ffcc00; /* Example background color */
+  color: #333; /* Example text color */
 }
 
 .user-info {
@@ -65,35 +91,9 @@
   cursor: pointer;
 }
 
-.dropdown {
-  position: absolute;
-  top: 100%;
-  right: 10;
-  background-color: #001a4d;
-  border: 1px solid #ccc;
-  list-style: none;
-  padding: 10px 10px;
-  margin: 40px;
-  width: 150px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-.dropdown li {
-  padding: 10px 20px;
-}
 
-.dropdown li button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  width: 100%;
-  text-align: left;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.dropdown li button:hover {
-  background-color: #cc2900;
-}
+
+
+

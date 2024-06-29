@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, output } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import {
   HttpClient,
@@ -6,7 +6,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { UserResponseDTO } from '../../../models/user.models';
-import { UserType } from "../../../models/UserRole";
+import { UserType } from '../../../models/UserRole';
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
 
 @Component({
@@ -14,21 +14,23 @@ import { AuthenticatedResponse } from '../../../models/authenticated-response';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() userName: string = '';
   @Input() credits: number = 0;
+  @Input() userRole: UserType = UserType.User;
+  userRoleEnum: typeof UserType = UserType
+  @Output() newItemEvent = new EventEmitter<string>();
   isDropdownOpen = false;
-  
-  @Input()  userRole: UserType =UserType.User;
+
+
   constructor(private authService: AuthService, private http: HttpClient) {}
   intervalId: any;
   ngOnInit() {
     // Call the methods every second
     this.intervalId = setInterval(() => {
-      this.getUsrName();
-    //  this.getCredits();
-   //   this.getUserRole();
+      this.getUserInfo();
+      //   this.getCredits();
+      //   this.getUserRole();
     }, 100);
   }
 
@@ -48,16 +50,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isUserAuthenticated = (): boolean => {
     return this.authService.isUserAuthenticated();
   };
-  getUsrName() {
+  getUserInfo() {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
 
-    if (this.cred.accessToken == '' || this.cred.refreshToken == ''){
+    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
       this.userName = 'anonymous';
-    this.credits=0;
-    this.userRole=UserType.User;
-    }
-    else {
+      this.credits = 0;
+      this.userRole = UserType.User;
+    } else {
       this.http
         .post<UserResponseDTO>(
           'https://localhost:7063/Account/getUserInfo',
@@ -69,12 +70,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response: UserResponseDTO) => {
             this.userName = response.nickName;
-            this.credits=response.credits;
-            this.userRole=response.userType;
+            this.credits = response.credits;
+            this.userRole = response.userType;
           },
         });
     }
-  }/*
+  } /*
   getCredits() {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     {

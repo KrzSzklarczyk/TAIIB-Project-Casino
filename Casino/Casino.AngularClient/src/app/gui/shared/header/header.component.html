@@ -1,8 +1,15 @@
 <header>
   <ul class="header-list">
-    <li class="menu-icon">
-      <i class="fa fa-bars"></i>
-    </li>
+    <div *ngIf="userRole === userRoleEnum.Admin">
+      <button mat-icon-button class="ikona-admin" [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/admin-user">Panel Uzytkownikow</button>
+        <button mat-menu-item routerLink="/admin-financial">Panel finansowy</button>
+      </mat-menu>
+    </div>
+
     <li class="logo">
       <span routerLink="">Keep Gambling Casino</span>
     </li>
@@ -12,56 +19,38 @@
     <li class="nav-button">
       <button class="promo-button" routerLink="/promotions">Promotions</button>
     </li>
-    Rola: {{userRole}}
-    <li class="user-info">
-      <mat-checkbox>Check me!</mat-checkbox>
-      <mat-divider></mat-divider>
-      <button mat-button>
-        <mat-icon class="icon-account">account_circle</mat-icon>
+
+    <div class="nav-button" style="margin-left: auto;">
+      <button
+        *ngIf="!this.isUserAuthenticated()"
+        class="login-button"
+        routerLink="/login"
+      >
+        Login
       </button>
+      <button
+        *ngIf="!this.isUserAuthenticated()"
+        class="login-button"
+        routerLink="/register"
+      >
+        Register
+      </button>
+    </div>
+
+    <div class="user-info" *ngIf="this.isUserAuthenticated()">
       <span class="credits">{{ credits | number }}</span>
       <span class="username" (click)="toggleDropdown()"
         >Hello {{ userName }}</span
       >
-      <ul class="dropdown" *ngIf="isDropdownOpen">
-        <li>
-          <button
-            *ngIf="!this.isUserAuthenticated()"
-            class="login-button"
-            routerLink="/login"
-          >
-            Login
-          </button>
-        </li>
-        <li>
-          <button
-            *ngIf="!this.isUserAuthenticated()"
-            class="login-button"
-            routerLink="/register"
-          >
-            Register
-          </button>
-        </li>
-        <li>
-          <button
-          *ngIf="userRole"
-            class="login-button"
-            routerLink="/register"
-          >
-            {{userRole}}
-          </button>
-        </li>
-        <li>
-          <button (click)="getUsrName()">
-          xd{{userRole}}
-          </button>
-        </li>
-        <li>
-          <button *ngIf="this.isUserAuthenticated()" (click)="logOut()">
-            logout
-          </button>
-        </li>
-      </ul>
-    </li>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="ikona">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/user-profile">Profile</button>
+        <button mat-menu-item routerLink="/user-history">Match History</button>
+        <button mat-menu-item routerLink="/user-transaction" style="background-color: green;">Buy Credits!!!</button>
+        <button mat-menu-item (click)="logOut()">LogOut</button>
+      </mat-menu>
+    </div>
   </ul>
 </header>
