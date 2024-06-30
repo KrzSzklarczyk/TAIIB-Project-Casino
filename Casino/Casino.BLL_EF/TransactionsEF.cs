@@ -21,7 +21,7 @@ namespace Casino.BLL_EF
         public CasinoDbContext _context;
         public IMapper mapper;
 
-        public List<TransactionsResponseDTO> GetHistory(TransactionsRequestDTO id, UserTokenResponse token)
+        public List<TransactionsResponseDTO> GetHistory( UserTokenResponse token)
         {
             var principal = use.GetPrincipalFromExpiredToken(token.AccessToken);
             var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
@@ -34,11 +34,11 @@ namespace Casino.BLL_EF
             var userId = int.Parse(userIdClaim.Value);
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
 
-            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow || (user.UserId != id.UserId && user.UserType != Model.DataTypes.UserType.Admin))
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow )
             {
                 throw new SecurityTokenException();
             }
-            var wyn= _context.Transactions.Where(x=>x.UserId== id.UserId).ToList();
+            var wyn= _context.Transactions.Where(x=>x.UserId== user.UserId).ToList();
             return wyn == null ? null : mapper.Map<List<TransactionsResponseDTO>>(wyn);
 
         }
@@ -63,6 +63,8 @@ namespace Casino.BLL_EF
             var kek = new Transactions { Amount = amount, Date = DateTime.UtcNow, User = user };
             user.Credits += amount;
             _context.Users.Update(user);
+            Transactions transactions = new Transactions { Amount = amount, Date = DateTime.UtcNow, User = user };
+            _context.Transactions.Add(transactions);
             _context.SaveChanges();
             return true;
             

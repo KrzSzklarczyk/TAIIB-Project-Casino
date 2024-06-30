@@ -10,7 +10,7 @@ namespace Casino.BLL
 {
     public interface ITransactions
     {
-        public List<TransactionsResponseDTO> GetHistory(TransactionsRequestDTO id, UserTokenResponse token);
+        public List<TransactionsResponseDTO> GetHistory( UserTokenResponse token);
         public bool AddTransaction(int amount, UserTokenResponse token);
     }
 }

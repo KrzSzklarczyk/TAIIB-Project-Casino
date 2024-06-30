@@ -81,6 +81,11 @@ namespace Casino.BLL_EF
                 user.Credits += bandit.betAmount * (bandit.pos1 + 1) * 10;
             }
             context.Users.Update(user);
+            Game game = new Game { Description = "test", EndDate = DateTime.UtcNow, MaxBet = 999999999, MinBet = 25, StartDate = DateTime.UtcNow };
+            Bandit bandit1 = new Bandit { Description = "test", Game = game, Position1 = bandit.pos1, Position2 = bandit.pos2, Position3 = bandit.pos3 };
+            game.Bandit = bandit1;
+            context.Games.Add(game);
+            context.Bandits.Add(bandit1);
             context.SaveChanges();
             return true;
             }

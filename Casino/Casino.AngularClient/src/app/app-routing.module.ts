@@ -12,6 +12,7 @@ import { ProfileComponent } from './gui/user-panel/profile/profile.component';
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
 import { MatchHistoryComponent } from './gui/user-panel/match-history/match-history.component';
 import { RouletteComponent } from './gui/roulette/roulette.component';
+import { TransactionHistoryComponent } from './gui/user-panel/transaction-history/transaction-history.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'user-history', component: MatchHistoryComponent },
   { path: 'roulette', component: RouletteComponent },
   { path: '', component: MainComponent },
+  {path:'transaction-history',component:TransactionHistoryComponent}
 ];
 
 @NgModule({

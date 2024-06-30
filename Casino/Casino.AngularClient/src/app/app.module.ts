@@ -33,6 +33,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { TransactionHistoryComponent } from './gui/user-panel/transaction-history/transaction-history.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -54,7 +56,8 @@ export function tokenGetter() {
     ProfileComponent,
     MatchHistoryComponent,
     TransactionComponent,
-    RouletteComponent, 
+    RouletteComponent,
+    TransactionHistoryComponent, 
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     MatCheckboxModule,
-    MatDividerModule,
+    MatDividerModule,MatToolbarModule,
     MatIconModule,
     MatMenuModule,
     MatInputModule,

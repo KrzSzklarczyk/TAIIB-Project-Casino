@@ -20,9 +20,9 @@ namespace Casino.Model
         public required Game Game { get; set; }
         [MaxLength(500)]
         public required string Description { get; set; }
-        public required BanditType Position1 { get; set; }
-        public required BanditType Position2 { get; set; }
-        public required BanditType Position3 { get; set; }
+        public required int Position1 { get; set; }
+        public required int Position2 { get; set; }
+        public required int Position3 { get; set; }
 
         public void Configure(EntityTypeBuilder<Bandit> builder)
         {

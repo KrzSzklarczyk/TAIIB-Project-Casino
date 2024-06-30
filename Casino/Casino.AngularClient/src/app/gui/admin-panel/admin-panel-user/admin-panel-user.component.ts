@@ -18,7 +18,7 @@ export class AdminPanelUserComponent implements OnInit {
   ngOnInit(): void {
    
    this.GetAllUsers();
-    console.log(this.Users);
+   
   }
   GetAllUsers=():void=>
     {this.cred.accessToken = localStorage.getItem('accessToken') ?? '';

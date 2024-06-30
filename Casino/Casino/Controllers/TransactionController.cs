@@ -16,10 +16,10 @@ namespace Casino.Controllers
             _transactions = t;
         }
 
-       [HttpPost("History/{userid}")]
-        public ActionResult ViewHistory(int userID,[FromBody]UserTokenResponse user)
+       [HttpPost("History")]
+        public ActionResult ViewHistory([FromBody]UserTokenResponse user)
         {
-            var history = _transactions.GetHistory(new TransactionsRequestDTO { UserId=userID},user);
+            var history = _transactions.GetHistory(user);
             return Ok(history);
         }
 
