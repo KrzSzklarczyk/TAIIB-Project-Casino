@@ -4,6 +4,9 @@
       <div class="reel"></div>
       <div class="reel"></div>
     </div>
-    <button class="control-btn" (click)="startRolling()">Start Rolling</button>
+    <div class="control-container">
+    <input type="number " class="bet-input" placeholder="Enter bet amount" [(ngModel)]="betAmount" />
+    <button class="control-btn" (click)="startRolling()" >Roll</button>
   </div>
+</div>
   
