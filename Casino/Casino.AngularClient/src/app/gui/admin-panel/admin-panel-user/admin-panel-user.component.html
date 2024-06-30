@@ -1,1 +1,32 @@
-<p>admin-panel-user works!</p>
+<div>
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Email</th>
+          <th>Nick Name</th>
+          <th>Avatar</th>
+          <th>Credits</th>
+          <th>User Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of Users">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.nickName }}</td>
+          <td><img [src]="user.avatar" alt="Avatar" width="50" height="50"></td>
+          <td>{{ user.credits }}</td>
+          <td>{{ user.userType }}</td>
+          <td>
+            <button>Button 1</button>
+            <button>Button 2</button>
+            <button>Button 3</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  
