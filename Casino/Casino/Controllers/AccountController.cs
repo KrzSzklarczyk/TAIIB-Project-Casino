@@ -69,5 +69,10 @@ namespace Casino.Controllers
             var refreshToken = _User.GetUserRole(token);
             return Ok(refreshToken.ToString());
         }
+        [HttpPost("RemoveUser/{id}")]
+        public ActionResult RemoveUser([FromBody] UserTokenResponse token,int id)
+        {
+           return Ok(_User.RemoveUser(token,id));
+        }
     }
 }

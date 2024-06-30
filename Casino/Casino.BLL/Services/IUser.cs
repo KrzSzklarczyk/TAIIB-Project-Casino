@@ -18,6 +18,7 @@ namespace Casino.BLL
         public UserTokenResponse RefreshToken(UserTokenResponse token);
         public List<UserResponseDTO> GetAllUsers(UserTokenResponse token);
         public int GetUserRole(UserTokenResponse token);
+        public bool RemoveUser(UserTokenResponse token,int Id);
         
     }
 }

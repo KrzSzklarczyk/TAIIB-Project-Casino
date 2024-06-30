@@ -31,7 +31,8 @@ import { RouletteComponent } from './gui/roulette/roulette.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -73,6 +74,9 @@ export function tokenGetter() {
     MatCardModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatFormFieldModule, 
+    MatTableModule,
+    MatButtonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
