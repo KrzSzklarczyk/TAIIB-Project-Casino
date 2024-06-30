@@ -11,7 +11,7 @@ namespace Casino.BLL
     public interface IResults
     {
         public ResultResponseDTO GetResult(ResultRequestDTO result, UserTokenResponse token);
-        public List<ResultResponseDTO> GetAllUserResults(ResultRequestDTO result, UserTokenResponse token);
+        public List<ResultResponseDTO> GetAllUserResults( UserTokenResponse token);
         public List<ResultResponseDTO> GetAllGameResults(ResultRequestDTO result, UserTokenResponse token);
     }
 }
