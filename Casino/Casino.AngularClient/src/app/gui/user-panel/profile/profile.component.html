@@ -7,10 +7,10 @@
     </mat-card-header>
     
     <mat-card-content>
-      <button class="btns" mat-button (click)="changeAvatar()">Change Avatar</button>
+      <button class="btns" mat-button (click)="toggleChangeAvatarForm()">Change Avatar</button>
       <button mat-button (click)="toggleChangePasswordForm()">Change Password</button>
       <button mat-button (click)="deleteAccount()">Delete Account</button>
-      <button mat-button (click)="logOut()">Logout</button>
+      <button mat-button routerLink="" (click)="logOut()">Logout</button>
     </mat-card-content>
 
     <div *ngIf="showChangePasswordForm" class="change-password-form">
@@ -21,7 +21,17 @@
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </form>
-      </div>
+    </div>
+
+    <div *ngIf="showChangeAvatarForm" class="change-avatar-form">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="changeAvatar()">
+          <mat-form-field>
+            <mat-label>New Avatar Url</mat-label>
+            <input matInput type="text" formControlName="newAvatar">
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
+    </div>
 
 </mat-card>
   
