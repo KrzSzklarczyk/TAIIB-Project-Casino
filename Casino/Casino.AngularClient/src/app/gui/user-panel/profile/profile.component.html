@@ -9,7 +9,7 @@
     <mat-card-content>
       <button class="btns" mat-button (click)="toggleChangeAvatarForm()">Change Avatar</button>
       <button mat-button (click)="toggleChangePasswordForm()">Change Password</button>
-      <button mat-button (click)="deleteAccount()">Delete Account</button>
+      <button mat-button (click)="toggleDeleteForm()">Delete Account</button>
       <button mat-button routerLink="" (click)="logOut()">Logout</button>
     </mat-card-content>
 
@@ -32,6 +32,12 @@
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </form>
     </div>
+    <div *ngIf="showDeleteForm" class="delete-form">
+      <form [formGroup]="changePasswordForm" (ngSubmit)="deleteAccount()">
+        
+        <button mat-raised-button color="primary" type="submit">Confirm</button>
+      </form>
+  </div>
 
 </mat-card>
   
