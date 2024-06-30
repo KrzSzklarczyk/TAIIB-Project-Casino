@@ -21,5 +21,6 @@ namespace Casino.BLL.DTO
         public DateTime EndDate { get; set; }
         public int MaxBet { get; set; }
         public int MinBet { get; set; }
+        public  int amount { get; set; }
     }
 }

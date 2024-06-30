@@ -22,16 +22,16 @@ namespace Casino.BLL_EF
         private UserEF _userEF;
         
 
-        public GameResponseDTO GetGameInfo(GameRequestDTO gameId)
+        public GameResponseDTO GetGameInfo(int gameId)
         {
-            var xd = context.Games.FirstOrDefault(x => x.GameId == gameId.GameId);
+            var xd = context.Games.FirstOrDefault(x => x.GameId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<GameResponseDTO>(xd);
         }
 
-        public BanditResponseDTO GetBanditInfo(GameRequestDTO gameId)
+        public BanditResponseDTO GetBanditInfo(int gameId)
         {
-            var xd = context.Bandits.FirstOrDefault(x => x.GameId == gameId.GameId);
+            var xd = context.Bandits.FirstOrDefault(x => x.GameId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<BanditResponseDTO>(xd);
         }
@@ -69,23 +69,27 @@ namespace Casino.BLL_EF
                     throw new SecurityTokenException();
                 }
                 if(user.Credits<bandit.betAmount)return false;
-            user.Credits -= bandit.betAmount;
-            context.Users.Update(user);
-            context.SaveChanges();
+
+            int amo;
             if(bandit.pos3==bandit.pos2&& bandit.pos2 == bandit.pos1)
             {
-                user.Credits += bandit.betAmount*(bandit.pos1+1)*100;
+               amo= bandit.betAmount*(bandit.pos1+1)*100;
+                
             }
             else if(bandit.pos3 == bandit.pos2|| bandit.pos2 == bandit.pos1)
             {
-                user.Credits += bandit.betAmount * (bandit.pos1 + 1) * 10;
+               amo= bandit.betAmount * (bandit.pos1 + 1) * 10;
             }
+            else { amo= -bandit.betAmount; }
+            user.Credits += amo;
             context.Users.Update(user);
-            Game game = new Game { Description = "test", EndDate = DateTime.UtcNow, MaxBet = 999999999, MinBet = 25, StartDate = DateTime.UtcNow };
+            Game game = new Game { Description = "test", EndDate = DateTime.UtcNow, MaxBet = 999999999, MinBet = 25, StartDate = DateTime.UtcNow ,amount=bandit.betAmount};
             Bandit bandit1 = new Bandit { Description = "test", Game = game, Position1 = bandit.pos1, Position2 = bandit.pos2, Position3 = bandit.pos3 };
             game.Bandit = bandit1;
             context.Games.Add(game);
             context.Bandits.Add(bandit1);
+            Result result = new Result { Amount = amo, Game = game, User = user };
+            context.Results.Add(result);
             context.SaveChanges();
             return true;
             }
