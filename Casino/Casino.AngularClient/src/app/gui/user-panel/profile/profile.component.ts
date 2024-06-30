@@ -5,6 +5,7 @@ import { UserType } from '../../../models/UserRole';
 import { UserResponseDTO } from '../../../models/user.models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { UserChangeDTO } from '../../../models/userChangeDto';
 
 @Component({
@@ -18,12 +19,13 @@ export class ProfileComponent {
   @Input() userRole: UserType = UserType.User;
   @Input() avatar: string = '';
   showChangePasswordForm = false;
+  showChangeAvatarForm = false;
   changePasswordForm: FormGroup;
   
   //form!: FormGroup;
   //validateHTML = this.userService.validateHTML.bind(this.userService)
 
-  constructor(private fb: FormBuilder, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService) { 
+  constructor(private fb: FormBuilder, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService, private authService: AuthService) { 
     this.changePasswordForm = this.fb.group({
      
       newPassword: ['', [Validators.required, Validators.minLength(6)]]
@@ -59,6 +61,13 @@ export class ProfileComponent {
   toggleChangePasswordForm() {
     this.getUserInfo();
     this.showChangePasswordForm = !this.showChangePasswordForm;
+    this.showChangeAvatarForm = false;
+  }
+
+  toggleChangeAvatarForm() {
+    this.getUserInfo();
+    this.showChangeAvatarForm = !this.showChangeAvatarForm;
+    this.showChangePasswordForm = false;
   }
 
   changePassword() {
@@ -99,6 +108,7 @@ export class ProfileComponent {
     // Logic to log out
     console.log('Logout clicked');
     this.getUserInfo();
+    this.authService.logOut();
   }
 
   getUserInfo() {
@@ -114,7 +124,7 @@ export class ProfileComponent {
           {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
           }
-        )
+        ) 
         .subscribe({
           next: (response: UserResponseDTO) => {
             this.userName = response.nickName;
