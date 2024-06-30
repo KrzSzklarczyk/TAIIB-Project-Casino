@@ -26,6 +26,7 @@ import { AdminPanelFinanceComponent } from './gui/admin-panel/admin-panel-financ
 import { ProfileComponent } from './gui/user-panel/profile/profile.component';
 import { MatchHistoryComponent } from './gui/user-panel/match-history/match-history.component';
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
+import { MatInputModule } from '@angular/material/input';
 
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
@@ -61,6 +62,9 @@ export function tokenGetter() {
     MatDividerModule,
     MatIconModule,
     MatMenuModule,
+    MatInputModule,
+    MatIconModule,
+    MatFormFieldModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
