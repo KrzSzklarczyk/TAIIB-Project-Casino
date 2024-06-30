@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       console.log(this.hasAvatar);
       //   this.getCredits();
       //   this.getUserRole();
-    }, 100);
+    }, 300);
   }
 
   ngOnDestroy() {
