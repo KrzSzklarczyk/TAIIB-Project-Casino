@@ -22,6 +22,12 @@ namespace Casino.Controllers
             var history = _transactions.GetHistory(user);
             return Ok(history);
         }
+        [HttpPost("History/{id}")]
+        public ActionResult AdminHistory([FromBody] UserTokenResponse user,int id)
+        {
+            var history = _transactions.GetHistory(user,id);
+            return Ok(history);
+        }
 
         [HttpPost("New/{amount}")]
         public ActionResult AddTransaction(int amount, [FromBody] UserTokenResponse user)

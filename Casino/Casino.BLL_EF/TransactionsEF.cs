@@ -4,6 +4,7 @@ using Casino.BLL.Authentication;
 using Casino.BLL.DTO;
 using Casino.DAL;
 using Casino.Model;
+using Casino.Model.DataTypes;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
@@ -69,6 +70,27 @@ namespace Casino.BLL_EF
             return true;
             
 
+        }
+
+        public List<TransactionsResponseDTO> GetHistory(UserTokenResponse token, int id)
+        {
+            var principal = use.GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow||user.UserType!=UserType.Admin)
+            {
+                throw new SecurityTokenException();
+            }
+            var wyn = _context.Transactions.Where(x => x.UserId == id).ToList();
+            return wyn == null ? null : mapper.Map<List<TransactionsResponseDTO>>(wyn);
         }
     }
 }
