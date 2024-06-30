@@ -31,7 +31,7 @@ namespace Casino.BLL_EF
 
         public BanditResponseDTO GetBanditInfo(int gameId)
         {
-            var xd = context.Bandits.FirstOrDefault(x => x.GameId == gameId);
+            var xd = context.Bandits.FirstOrDefault(x => x.BanditId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<BanditResponseDTO>(xd);
         }
@@ -83,8 +83,8 @@ namespace Casino.BLL_EF
             else { amo= -bandit.betAmount; }
             user.Credits += amo;
             context.Users.Update(user);
-            Game game = new Game { Description = "test", EndDate = DateTime.UtcNow, MaxBet = 999999999, MinBet = 25, StartDate = DateTime.UtcNow ,amount=bandit.betAmount};
-            Bandit bandit1 = new Bandit { Description = "test", Game = game, Position1 = bandit.pos1, Position2 = bandit.pos2, Position3 = bandit.pos3 };
+            Game game = new Game { Description = "test", EndDate = DateTime.UtcNow, MaxBet = user.Credits-amo, MinBet = 25, StartDate = DateTime.UtcNow ,amount=bandit.betAmount};
+            Bandit bandit1 = new Bandit { Description = "test",  Position1 = bandit.pos1, Position2 = bandit.pos2, Position3 = bandit.pos3 };
             game.Bandit = bandit1;
             context.Games.Add(game);
             context.Bandits.Add(bandit1);
