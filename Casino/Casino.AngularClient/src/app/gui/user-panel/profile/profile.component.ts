@@ -25,7 +25,7 @@ export class ProfileComponent {
 
   constructor(private fb: FormBuilder, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService) { 
     this.changePasswordForm = this.fb.group({
-      currentPassword: ['', Validators.required],
+     
       newPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
