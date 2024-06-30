@@ -35,6 +35,7 @@
   background-color: transparent;
   border: none;
   transform: scale(2);
+  border-radius: 50%;
 }
 
 .logo {

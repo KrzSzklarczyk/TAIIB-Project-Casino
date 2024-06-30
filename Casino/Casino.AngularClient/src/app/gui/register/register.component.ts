@@ -55,7 +55,7 @@ export class RegisterComponent {
       this.credentials.login = data.login;
       this.credentials.password = data.password;
       this.credentials.email = data.email;
-      this.credentials.avatar = "test.jpg";
+      this.credentials.avatar = "";
       this.credentials.nickName = data.login;
       this.http.post<AuthenticatedResponse>("https://localhost:7063/Account/register", this.credentials, {
         headers: new HttpHeaders({ "Content-Type": "application/json"})

@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<mat-card class="user-profile-card">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-container">
+        <img mat-card-avatar [src]="avatar" alt="avatar" class="rounded-avatar">
+      </div>
+      <mat-card-title>{{ userName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button class="btns" mat-button (click)="changeAvatar()">Change Avatar</button>
+      <button mat-button (click)="changePassword()">Change Password</button>
+      <button mat-button (click)="deleteAccount()">Delete Account</button>
+      <button mat-button (click)="logOut()">Logout</button>
+    </mat-card-content>
+  </mat-card>
+  

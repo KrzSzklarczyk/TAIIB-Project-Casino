@@ -18,10 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() userName: string = '';
   @Input() credits: number = 0;
   @Input() userRole: UserType = UserType.User;
+  @Input() avatar: string = '';
   userRoleEnum: typeof UserType = UserType
   @Output() newItemEvent = new EventEmitter<string>();
   isDropdownOpen = false;
-
+  hasAvatar = false;
 
   constructor(private authService: AuthService, private http: HttpClient) {}
   intervalId: any;
@@ -29,6 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // Call the methods every second
     this.intervalId = setInterval(() => {
       this.getUserInfo();
+      this.hasAvatar = !!this.avatar;
+      console.log(this.hasAvatar);
       //   this.getCredits();
       //   this.getUserRole();
     }, 300);
@@ -72,10 +75,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.userName = response.nickName;
             this.credits = response.credits;
             this.userRole = response.userType;
+            this.avatar = response.avatar;
           },
         });
     }
-  } /*
+  }
+
+  logOut() {
+    this.authService.logOut();
+  }
+  
+  
+  /*
   getCredits() {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     {
@@ -123,7 +134,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }}
   }
   */
-  logOut() {
-    this.authService.logOut();
-  }
+
 }
