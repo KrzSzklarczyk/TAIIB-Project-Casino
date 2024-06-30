@@ -32,10 +32,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getUserInfo();
       this.hasAvatar = !!this.avatar;
       console.log(this.hasAvatar);
-      //   this.getCredits();
-      //   this.getUserRole();
     }, 300);
   }
+
 
   ngOnDestroy() {
     if (this.intervalId) {
@@ -84,55 +83,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logOut() {
     this.authService.logOut();
   }
-  
-  
-  /*
-  getCredits() {
-    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-    {
-      this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-
-      if (this.cred.accessToken == '' || this.cred.refreshToken == '')
-        this.credits = 0;
-      else {
-        this.http
-          .post<number>(
-            'https://localhost:7063/Account/getCredits',
-            this.cred,
-            {
-              headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            }
-          )
-          .subscribe({
-            next: (response: number) => {
-              this.credits = response;
-            },
-          });
-      }
-    }
-  }
-  getUserRole() {
-    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-    {
-      this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-      if ((this.cred.accessToken == '' || this.cred.refreshToken == ''))
-        this.userRole=0
-      else{
-        this.http
-        .post<number>(
-          'https://localhost:7063/Account/GetUserRole',
-          this.cred,
-          {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-          }
-        )
-        .subscribe({
-          next: (response: number) => {
-            this.userRole = response;
-          },
-      });
-    }}
-  }
-  */
-
 }

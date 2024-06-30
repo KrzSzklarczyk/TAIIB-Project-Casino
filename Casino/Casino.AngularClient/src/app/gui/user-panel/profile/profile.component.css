@@ -1,9 +1,8 @@
 .user-profile-card {
     max-width: 600px;
-    height:500px;
     margin: 50px auto;
     padding: 1em;
-    background-color: #302f2f; /* Adjust background color */
+    background-color: #1e1e1e; /* Adjust background color */
     color: #fff; /* Text color */
     border-radius: 10px; /* Rounded corners */
     text-align: center;
@@ -20,7 +19,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 3px solid #fff; /* White border around avatar */
+    border: 2px solid #fff; /* White border around avatar */
   }
   
   .mat-card-header {
@@ -35,23 +34,66 @@
   .mat-card-title {
     font-size: 1.5em;
     font-weight: bold;
+    margin-left: 16px;
   }
   
   .mat-card-content {
     display: flex;
-    justify-content: center;
-    gap: 16px; /* Add some space between buttons */
+    flex-direction: column;
+    align-items: center;
   }
   
-  .mat-card-content button {
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Add some space between buttons */
+  }
+  
+  .button-container button {
     color: #ff4081; /* Button text color */
   }
   
-  .mat-card-content button:hover {
+  .button-container button:hover {
     background-color: #ff4081; /* Button hover color */
     color: #fff; /* Hover text color */
   }
   
-  .btns {
-    margin: 5%;
+  .change-password-form {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .submit {
+    margin: 10px;
+  }
+
+  .form-btns {
+    width: 40%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+  }
+  
+  
+  
+  @media (min-width: 960px) {
+  
+    .auth-form-container mat-form-field {
+      margin: 1em 0;
+      width: 75%
+    }
+  
+  }
+  
+  @media (min-width: 1260px) {
+    .auth-form-container mat-form-field {
+      margin: 1em 0;
+      width: 40%
+    }
   }

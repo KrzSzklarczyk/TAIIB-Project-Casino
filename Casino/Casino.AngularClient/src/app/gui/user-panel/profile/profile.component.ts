@@ -3,6 +3,8 @@ import { AuthenticatedResponse } from '../../../models/authenticated-response';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserType } from '../../../models/UserRole';
 import { UserResponseDTO } from '../../../models/user.models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,13 +16,32 @@ export class ProfileComponent {
   @Input() credits: number = 0;
   @Input() userRole: UserType = UserType.User;
   @Input() avatar: string = '';
+  showChangePasswordForm = false;
+  changePasswordForm: FormGroup;
+  //form!: FormGroup;
+  //validateHTML = this.userService.validateHTML.bind(this.userService)
 
-  constructor(private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService) { 
+    this.changePasswordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
   ngOnInit() {
     this.getUserInfo();
-  }
+    // this.form.get('password')?.setValidators([
+    //   Validators.required,
+    //   Validators.minLength(6),
+    //   this.userService.passwordValidator()
+    // ])
 
+    // this.form.addControl('confirmedPassword', this.formBuilder.control(
+    //   'User1234!',
+    //   [Validators.required,
+    //     this.userService.passwordMatchValidator(this.form)
+    //   ]));
+  }
 
   cred: AuthenticatedResponse = {
     accessToken: localStorage.getItem('accessToken') ?? '',
@@ -33,10 +54,13 @@ export class ProfileComponent {
     this.getUserInfo();
   }
 
-  changePassword() {
-    // Logic to change password
-    console.log('Change Password clicked');
+  toggleChangePasswordForm() {
     this.getUserInfo();
+    this.showChangePasswordForm = !this.showChangePasswordForm;
+  }
+
+  changePassword() {
+    
   }
 
   deleteAccount() {

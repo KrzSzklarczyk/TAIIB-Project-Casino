@@ -48,7 +48,6 @@ export class RegisterComponent {
         [Validators.required,
           this.userService.passwordMatchValidator(this.form)
         ]));
-
   }
 
   rejestracja = ( data: UserRegisterRequestDTO ) => {

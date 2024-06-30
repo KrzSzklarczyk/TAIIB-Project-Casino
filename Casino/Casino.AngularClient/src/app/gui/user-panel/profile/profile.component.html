@@ -5,11 +5,23 @@
       </div>
       <mat-card-title>{{ userName }}</mat-card-title>
     </mat-card-header>
+    
     <mat-card-content>
       <button class="btns" mat-button (click)="changeAvatar()">Change Avatar</button>
-      <button mat-button (click)="changePassword()">Change Password</button>
+      <button mat-button (click)="toggleChangePasswordForm()">Change Password</button>
       <button mat-button (click)="deleteAccount()">Delete Account</button>
       <button mat-button (click)="logOut()">Logout</button>
     </mat-card-content>
-  </mat-card>
+
+    <div *ngIf="showChangePasswordForm" class="change-password-form">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+          <mat-form-field>
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="newPassword">
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
+      </div>
+
+</mat-card>
   
