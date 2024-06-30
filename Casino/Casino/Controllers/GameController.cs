@@ -18,7 +18,7 @@ namespace Casino.Controllers
         [HttpGet("Bandit/{id}")]
         public ActionResult BandytaInfo(int id)
         {
-            return Ok(_Game.GetBanditInfo(new GameRequestDTO { GameId=id}));
+            return Ok(_Game.GetBanditInfo(id));
         }
         [HttpPost("PlayBandit/{pos1}/{pos2}/{pos3}/{amoutn}")]
         public ActionResult BandytaInfo(int pos1,int pos2,int pos3,int amoutn, [FromBody] UserTokenResponse token)
@@ -31,12 +31,12 @@ namespace Casino.Controllers
         [HttpGet("Roulette/{id}")]
         public ActionResult RouletteInfo(int id)
         {
-            return Ok(_Game.GetBanditInfo(new GameRequestDTO { GameId = id }));
+            return Ok(_Game.GetBanditInfo(id));
         }
         [HttpGet("Game/{id}")]
         public ActionResult GameInfo(int id)
         {
-            return Ok(_Game.GetGameInfo(new GameRequestDTO { GameId = id }));
+            return Ok(_Game.GetGameInfo(id));
         }
     }
 }

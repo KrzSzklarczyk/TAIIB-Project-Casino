@@ -22,16 +22,16 @@ namespace Casino.BLL_EF
         private UserEF _userEF;
         
 
-        public GameResponseDTO GetGameInfo(GameRequestDTO gameId)
+        public GameResponseDTO GetGameInfo(int gameId)
         {
-            var xd = context.Games.FirstOrDefault(x => x.GameId == gameId.GameId);
+            var xd = context.Games.FirstOrDefault(x => x.GameId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<GameResponseDTO>(xd);
         }
 
-        public BanditResponseDTO GetBanditInfo(GameRequestDTO gameId)
+        public BanditResponseDTO GetBanditInfo(int gameId)
         {
-            var xd = context.Bandits.FirstOrDefault(x => x.GameId == gameId.GameId);
+            var xd = context.Bandits.FirstOrDefault(x => x.GameId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<BanditResponseDTO>(xd);
         }
