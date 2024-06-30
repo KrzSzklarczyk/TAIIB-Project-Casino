@@ -28,6 +28,9 @@ import { MatchHistoryComponent } from './gui/user-panel/match-history/match-hist
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
 import { MatInputModule } from '@angular/material/input';
 import { RouletteComponent } from './gui/roulette/roulette.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 export function tokenGetter() { 
@@ -67,6 +70,10 @@ export function tokenGetter() {
     MatMenuModule,
     MatInputModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatRadioModule,
+    MatButtonToggleModule,
     MatFormFieldModule, 
     MatTableModule,
     MatButtonModule,
