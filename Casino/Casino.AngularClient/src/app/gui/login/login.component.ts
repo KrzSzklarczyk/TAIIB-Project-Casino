@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import{AuthenticatedResponse} from "../../models/authenticated-response";
 import { LoginModel } from '../../models/login-model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,27 +18,17 @@ export class LoginComponent {
   isLoginMode: boolean = true;
   credentials: LoginModel = {Login:'', Password:''};
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient,private authService:AuthService) { }
 
   login = ( form: NgForm) => {
     if (form.valid) {
-      this.http.post<AuthenticatedResponse>("https://localhost:7063/Account/Login", this.credentials, {
-        headers: new HttpHeaders({ "Content-Type": "application/json"})
-      })
-      .subscribe({
-        next: (response: AuthenticatedResponse) => {
-          const token = response.accessToken;
-          const refreshToken = response.refreshToken;
-          localStorage.setItem("accessToken", token);
-          localStorage.setItem("refreshToken", refreshToken);
-          this.invalidLogin = false;
-          this.router.navigate(["/"]);
-        },
-        error: (err: HttpErrorResponse) => this.invalidLogin = true
-      })
-    }
+this.invalidLogin=this.authService.logIn(this.credentials);
+      if(!this.invalidLogin) 
+        this.router.navigate(["/"]);
   }
 
 
 
 }
+}
+
