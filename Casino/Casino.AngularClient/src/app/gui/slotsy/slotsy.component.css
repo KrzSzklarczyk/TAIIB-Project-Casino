@@ -59,7 +59,18 @@
     transform: translate(200%, -50%);
   }
   
-  @keyframes win {
+  @keyframes win1 {
+    0% {
+      background: linear-gradient(45deg, rgb(0, 255, 55) 0%, rgb(0, 255, 55) 100%);
+      box-shadow: 0 0 80px rgb(0, 255, 13);
+    }
+    100% {
+      background: linear-gradient(45deg, grey 0%, lightgrey 100%);
+      box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  @keyframes win2 {
     0% {
       background: linear-gradient(45deg, orange 0%, yellow 100%);
       box-shadow: 0 0 80px orange;
@@ -69,11 +80,30 @@
       box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
     }
   }
-  
-  .slot-machine .slots.win {
-    animation: win 200ms steps(2, end) infinite;
+
+  @keyframes lose {
+    0% {
+      background: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
+      box-shadow: 0 0 80px rgb(255, 0, 0);
+    }
+    100% {
+      background: linear-gradient(45deg, grey 0%, lightgrey 100%);
+      box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
+    }
   }
   
+  .slot-machine .slots.win1 {
+    animation: win1 200ms steps(2, end) infinite;
+  }
+  
+  .slot-machine .slots.win2 {
+    animation: win2 200ms steps(2, end) infinite;
+  }
+
+  .slot-machine .slots.lose {
+    animation: lose 400ms steps(1, end);
+  }
+
   .slot-machine .reel {
     position: relative;
     width: var(--icon-width);

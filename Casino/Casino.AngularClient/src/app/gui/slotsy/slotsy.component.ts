@@ -31,11 +31,18 @@ export class SlotsyComponent implements OnInit {
         this.debugText = this.slotMachineService.indexes.map((i) => this.slotMachineService.iconMap[i]).join(' - ');
       
        console.log(this.debugText);
-      
-        if (this.slotMachineService.indexes[0] == this.slotMachineService.indexes[1] && this.slotMachineService.indexes[1] == this.slotMachineService.indexes[2]) {
+        
+        if (this.slotMachineService.indexes[0] == this.slotMachineService.indexes[1] || this.slotMachineService.indexes[1] == this.slotMachineService.indexes[2]) {
+          const winCls = this.slotMachineService.indexes[0] == this.slotMachineService.indexes[2] ? "win2" : "win1";
           const slotsEl = document.querySelector(".slots") as HTMLElement;
-          slotsEl.classList.add("win");
-          setTimeout(() => slotsEl.classList.remove("win"), 2000);
+          slotsEl.classList.add(winCls);
+          setTimeout(() => slotsEl.classList.remove(winCls), 2000);
+        }
+        else{
+          const winCls = "lose";
+          const slotsEl = document.querySelector(".slots") as HTMLElement;
+          slotsEl.classList.add(winCls);
+          setTimeout(() => slotsEl.classList.remove(winCls), 2000);
         }
         this.rolling = false;
       });
