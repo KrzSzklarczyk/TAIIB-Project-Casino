@@ -27,6 +27,7 @@ import { ProfileComponent } from './gui/user-panel/profile/profile.component';
 import { MatchHistoryComponent } from './gui/user-panel/match-history/match-history.component';
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
 import { MatInputModule } from '@angular/material/input';
+import { RouletteComponent } from './gui/roulette/roulette.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
@@ -48,7 +49,8 @@ export function tokenGetter() {
     AdminPanelFinanceComponent,
     ProfileComponent,
     MatchHistoryComponent,
-    TransactionComponent, 
+    TransactionComponent,
+    RouletteComponent, 
   ],
   imports: [
     BrowserModule,
