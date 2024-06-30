@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModsService } from '../../../services/mods.service';
+
 import { UserResponseDTO } from '../../../models/user.models';
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -12,7 +12,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 export class AdminPanelUserComponent implements OnInit {
   Users: UserResponseDTO[] = [];
   cred:AuthenticatedResponse ={accessToken:'',refreshToken:''}
-  constructor(private modsService: ModsService,private http:HttpClient) {}
+  constructor(private http:HttpClient) {}
+  displayedColumns: string[] = ['userId', 'email', 'nickName', 'avatar', 'credits', 'userType', 'actions'];
 
   ngOnInit(): void {
    
@@ -42,4 +43,31 @@ export class AdminPanelUserComponent implements OnInit {
           });
          
     }
+    RemoveUser=( id:number ):void=>
+      {
+        this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+        this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+        
+   
+        if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+         return
+        
+         }
+         const url = `https://localhost:7063/Account/RemoveUser/${id}`;
+        this.http.post<boolean>(url, this.cred, {
+            headers: new HttpHeaders({ "Content-Type": "application/json"})
+          })
+          .subscribe({
+            next: (response: boolean) => {
+            
+              if(response)
+                {
+this.GetAllUsers();
+return
+                }
+             
+            },
+            error: (err: HttpErrorResponse) => {return}
+          });
+      }
 }

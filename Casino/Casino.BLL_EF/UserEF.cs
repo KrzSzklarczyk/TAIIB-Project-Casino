@@ -193,10 +193,10 @@ namespace Casino.BLL_EF
             var userId = int.Parse(userIdClaim.Value);
             var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
 
-/*            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
             {
                 throw new SecurityTokenException();
-            }*/
+            }
             return mapper.Map<UserResponseDTO>( user);
         }
 
@@ -220,6 +220,37 @@ namespace Casino.BLL_EF
             if (user.UserType == UserType.Admin)
                 return 1;
             return 0;
+        }
+
+        public bool RemoveUser(UserTokenResponse token, int Id)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow || user.UserType != UserType.Admin)
+            {
+                throw new SecurityTokenException();
+            }
+            var xd = _context.Users.FirstOrDefault(u => u.UserId == Id);
+            if (xd == null) { return false; }
+            try
+            {
+                _context.Users.Remove(xd);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

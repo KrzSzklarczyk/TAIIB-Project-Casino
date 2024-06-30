@@ -28,7 +28,8 @@ import { MatchHistoryComponent } from './gui/user-panel/match-history/match-hist
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
 import { MatInputModule } from '@angular/material/input';
 import { RouletteComponent } from './gui/roulette/roulette.component';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -66,7 +67,9 @@ export function tokenGetter() {
     MatMenuModule,
     MatInputModule,
     MatIconModule,
-    MatFormFieldModule,
+    MatFormFieldModule, 
+    MatTableModule,
+    MatButtonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
