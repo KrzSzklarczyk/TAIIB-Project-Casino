@@ -4,7 +4,7 @@ import { UserResponseDTO } from '../../../models/user.models';
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { TransactionsResponseDTO } from '../../../models/TransactionDTO';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, forkJoin, of, switchMap, map } from 'rxjs';
 import { BanditResponseDTO } from '../../../models/banditDTO';
 import { GameResponseDTO } from '../../../models/gameDTO';
 import { ResultResponseDTO } from '../../../models/ResultDTO';
@@ -16,90 +16,67 @@ import { ResultResponseDTO } from '../../../models/ResultDTO';
 })
 export class AdminPanelUserComponent implements OnInit {
   Users: UserResponseDTO[] = [];
+  iconMap = ["banana", "seven", "cherry", "plum", "orange", "bell", "bar", "lemon", "melon"];
   cred: AuthenticatedResponse = { accessToken: '', refreshToken: '' };
   displayedColumns: string[] = ['userId', 'email', 'nickName', 'avatar', 'credits', 'userType', 'actions'];
   his: { date: string | Date, amount: number, position1: number, position2: number, position3: number, minbet: number, maxbet: number, betAmount: number }[] = [];
-  histrans: TransactionsResponseDTO[] = [];
-  matchHistory: { date: string | Date, amount: number, position1: number, position2: number, position3: number, minbet: number, maxbet: number, betAmount: number }[] = [];
   transactionHistory: TransactionsResponseDTO[] = [];
-  showMatchHistory = false;
-  showTransactionHistory = false;
+  showMatchHistory: boolean = false;
+  showTransactionHistory: boolean = false;
   selectedUserId: number | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.GetAllUsers();
   }
 
-  banditData: BanditResponseDTO = {
-    description: '',
-    position1: 0,
-    position2: 0,
-    position3: 0
-  };
-
-  gameData: GameResponseDTO = {
-    resultId: 0,
-    blackJackId: null,
-    rouletteId: null,
-    banditId: 0,
-    description: '',
-    startDate: new Date(),
-    endDate: new Date(),
-    maxBet: 0,
-    minBet: 0,
-    amount: 0
-  };
-
-  GetAllUsers = (): void => {
+  GetAllUsers(): void {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-
     this.Users = [];
-    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+    if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
       return;
     }
-
     this.http.post<UserResponseDTO[]>("https://localhost:7063/Account/getAllUsers", this.cred, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
-    })
-      .subscribe({
-        next: (response: UserResponseDTO[]) => {
-          this.Users = response;
-        },
-        error: (err: HttpErrorResponse) => { this.Users = [] }
-      });
+    }).subscribe({
+      next: (response: UserResponseDTO[]) => {
+        this.Users = response;
+      },
+      error: (err: HttpErrorResponse) => { this.Users = []; }
+    });
   }
 
-  RemoveUser = (id: number): void => {
+  RemoveUser(id: number): void {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-
-    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+    if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
       return;
     }
     const url = `https://localhost:7063/Account/RemoveUser/${id}`;
     this.http.post<boolean>(url, this.cred, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
-    })
-      .subscribe({
-        next: (response: boolean) => {
-          if (response) {
-            this.GetAllUsers();
-            this.showMatchHistory = false;
-            this.showTransactionHistory = false;
-          }
-        },
-        error: (err: HttpErrorResponse) => { return }
-      });
+    }).subscribe({
+      next: (response: boolean) => {
+        if (response) {
+          this.GetAllUsers();
+        }
+      },
+      error: (err: HttpErrorResponse) => { }
+    });
   }
 
   getBanditData(id: number): Observable<BanditResponseDTO> {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
     if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
-      return of(this.banditData); // Return an observable of the default banditData
+      return of({
+        description: '',
+        position1: 0,
+        position2: 0,
+        position3: 0
+      });
     } else {
       const url = `https://localhost:7063/Game/Bandit/${id}`;
       return this.http.get<BanditResponseDTO>(url, {
@@ -112,7 +89,18 @@ export class AdminPanelUserComponent implements OnInit {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
     if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
-      return of(this.gameData); // Return an observable of the default gameData
+      return of({
+        resultId: 0,
+        blackJackId: null,
+        rouletteId: null,
+        banditId: 0,
+        description: '',
+        startDate: new Date(),
+        endDate: new Date(),
+        maxBet: 0,
+        minBet: 0,
+        amount: 0
+      });
     } else {
       const url = `https://localhost:7063/Game/Game/${id}`;
       return this.http.get<GameResponseDTO>(url, {
@@ -121,26 +109,25 @@ export class AdminPanelUserComponent implements OnInit {
     }
   }
 
-  GetHistory = (id: number): void => {
+  GetHistory(id: number): void {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-
-    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+    if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
       this.his = [];
       return;
     }
     const url = `https://localhost:7063/Transaction/History/${id}`;
     this.http.post<TransactionsResponseDTO[]>(url, this.cred, {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
-    })
-      .subscribe({
-        next: (response: TransactionsResponseDTO[]) => {
-          console.log(response);
-          this.histrans = response;
-          return;
-        },
-        error: (err: HttpErrorResponse) => { this.his = [] }
-      });
+    }).subscribe({
+      next: (response: TransactionsResponseDTO[]) => {
+        this.transactionHistory = response;
+        this.showTransactionHistory = true;
+        this.showMatchHistory = false;
+        this.selectedUserId = id;
+      },
+      error: (err: HttpErrorResponse) => { this.transactionHistory = []; }
+    });
   }
 
   getResultData(id: number): void {
@@ -153,7 +140,6 @@ export class AdminPanelUserComponent implements OnInit {
     this.http.post<ResultResponseDTO[]>(url, this.cred, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).subscribe(results => {
-      // Create an array of observables to handle fetching game and bandit data
       const dataObservables = results.map(result => {
         return this.getGameData(result.gameId).pipe(
           switchMap(gameData => {
@@ -173,26 +159,21 @@ export class AdminPanelUserComponent implements OnInit {
         );
       });
 
-      // Combine all observables and update the `his` array once all data is fetched
       forkJoin(dataObservables).subscribe(hisData => {
         this.his = hisData;
-        console.log(this.his);
+        this.showMatchHistory = true;
+        this.showTransactionHistory = false;
       });
     });
   }
 
-  getMatchHistory(userId: number): void {
-    this.selectedUserId = userId;
-    this.showMatchHistory = true;
-    this.showTransactionHistory = false;
-    this.getResultData(userId);
+  funcshowTransactionHistory(userId: number): void {
+    this.GetHistory(userId);
   }
 
-  funcshowTransactionHistory(userId: number): void {
+  getMatchHistory(userId: number): void {
+    this.getResultData(userId);
     this.selectedUserId = userId;
-    this.showTransactionHistory = true;
-    this.showMatchHistory = false;
-    this.GetHistory(userId);
   }
 
   goBack(): void {
