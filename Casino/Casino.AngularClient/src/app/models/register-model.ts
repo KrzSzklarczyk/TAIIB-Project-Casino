@@ -3,5 +3,5 @@ export interface UserRegisterRequestDTO {
       password: string;
       email: string;
       nickName: string;
-    avatar: string;
+      avatar: string;
 }

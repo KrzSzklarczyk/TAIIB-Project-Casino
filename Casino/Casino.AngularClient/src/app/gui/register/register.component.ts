@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { AuthenticatedResponse } from '../../models/authenticated-response';
 import { UserRegisterRequestDTO } from '../../models/register-model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -15,14 +15,48 @@ import { UserRegisterRequestDTO } from '../../models/register-model';
 export class RegisterComponent {
   form!: FormGroup;
   invalidLogin: boolean = false;
-  isLoginMode: boolean = true;
-  credentials: UserRegisterRequestDTO = {login: '', password :'', nickName:'', avatar:'', email:''};
+  credentials: UserRegisterRequestDTO = {login: '', password :'', email:'', nickName:'', avatar:''};
+  validateHTML = this.userService.validateHTML.bind(this.userService)
 
+  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService) { }
 
-  constructor(private router: Router, private http: HttpClient) { }
+  ngOnInit(){
+    this.form = this.formBuilder.group({
+      login: ['user0'],
+      password: ['User1234!']
+    })
 
-  rejestracja = ( form: NgForm) => {
-    if (form.valid) {
+      this.form.get('login')?.setValidators([
+        Validators.required,
+        Validators.minLength(4)
+      ])
+
+      this.form.get('password')?.setValidators([
+        Validators.required,
+        Validators.minLength(4),
+        this.userService.passwordValidator()
+      ])
+
+      this.form.addControl('email', this.formBuilder.control(
+        'user0@my-account.com',
+        [
+          Validators.required,
+          Validators.email
+        ]));
+      this.form.addControl('confirmedPassword', this.formBuilder.control(
+        'User1234!',
+        [Validators.required,
+          this.userService.passwordMatchValidator(this.form)
+        ]));
+
+  }
+
+  rejestracja = ( data: UserRegisterRequestDTO ) => {
+      this.credentials.login = data.login;
+      this.credentials.password = data.password;
+      this.credentials.email = data.email;
+      this.credentials.avatar = "test.jpg";
+      this.credentials.nickName = data.login;
       this.http.post<AuthenticatedResponse>("https://localhost:7063/Account/register", this.credentials, {
         headers: new HttpHeaders({ "Content-Type": "application/json"})
       })
@@ -37,9 +71,5 @@ export class RegisterComponent {
         },
         error: (err: HttpErrorResponse) => this.invalidLogin = true
       })
-    }
   }
-
-
-
 }
