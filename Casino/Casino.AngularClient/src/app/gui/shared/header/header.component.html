@@ -42,9 +42,12 @@
       <span class="username" (click)="toggleDropdown()"
         >Hello {{ userName }}</span
       >
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="ikona">
+      <button *ngIf="!hasAvatar" mat-icon-button [matMenuTriggerFor]="menu" class="ikona">
         <mat-icon>account_circle</mat-icon>
       </button>
+      <div *ngIf="hasAvatar">
+      <img [src]="avatar" alt="Avatar" width="40" height="40" class="ikona" [matMenuTriggerFor]="menu">
+      </div>
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/user-profile">Profile</button>
         <button mat-menu-item routerLink="/user-history">Match History</button>
