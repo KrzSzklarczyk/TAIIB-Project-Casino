@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.intervalId = setInterval(() => {
       this.getUserInfo();
       this.hasAvatar = !!this.avatar;
-      console.log(this.hasAvatar);
+   
     }, 300);
   }
 
