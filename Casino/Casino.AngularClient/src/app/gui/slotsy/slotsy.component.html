@@ -6,7 +6,22 @@
     </div>
     <div class="control-container">
     <input type="number " class="bet-input" placeholder="Enter bet amount" [(ngModel)]="betAmount" />
+
+    <div class="first-row-buttons">
+    <button class="control-btn" (click)="setMinBet()">MinBet</button>
     <button class="control-btn" (click)="startRolling()" >Roll</button>
+    <button class="control-btn" (click)="setMaxBet()">MaxBet</button>
+    </div>
+    <div class="second-row-buttons">
+    <button class="control-btn" (click)="increase25Bet()">+25</button>
+    <button class="control-btn" (click)="increase50Bet()">+50</button>
+    <button class="control-btn" (click)="increase100Bet()">+100</button>
+    </div>
+    <div class="third-row-buttons">
+    <button class="control-btn" (click)="decrease25Bet()">-25</button>
+    <button class="control-btn" (click)="decrease50Bet()">-50</button>
+    <button class="control-btn" (click)="decrease100Bet()">-100</button>
+    </div>
   </div>
 </div>
   
