@@ -89,7 +89,7 @@ export class MatchHistoryComponent implements OnInit {
               map(banditData => ({
                 amount: result.amount,
                 betAmount: gameData.amount,
-                date: result.dateTime,
+                date: gameData.endDate,
                 maxbet: gameData.maxBet,
                 minbet: gameData.minBet,
                 position1: banditData.position1,

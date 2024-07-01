@@ -131,11 +131,14 @@ export class AdminPanelUserComponent implements OnInit {
   }
 
   getResultData(id: number): void {
+    this.showMatchHistory = true;
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
     this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+    this.his=[];
     if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
       return;
     }
+    
     const url = `https://localhost:7063/Result/GetUserResult/${id}`;
     this.http.post<ResultResponseDTO[]>(url, this.cred, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -147,7 +150,7 @@ export class AdminPanelUserComponent implements OnInit {
               map(banditData => ({
                 amount: result.amount,
                 betAmount: gameData.amount,
-                date: result.dateTime,
+                date: gameData.endDate,
                 maxbet: gameData.maxBet,
                 minbet: gameData.minBet,
                 position1: banditData.position1,
@@ -161,7 +164,7 @@ export class AdminPanelUserComponent implements OnInit {
 
       forkJoin(dataObservables).subscribe(hisData => {
         this.his = hisData;
-        this.showMatchHistory = true;
+       
         this.showTransactionHistory = false;
       });
     });
@@ -169,11 +172,14 @@ export class AdminPanelUserComponent implements OnInit {
 
   funcshowTransactionHistory(userId: number): void {
     this.GetHistory(userId);
+    this.showTransactionHistory = true;
+    console.log(this.transactionHistory)
   }
 
   getMatchHistory(userId: number): void {
     this.getResultData(userId);
     this.selectedUserId = userId;
+    this.showMatchHistory = true;
   }
 
   goBack(): void {

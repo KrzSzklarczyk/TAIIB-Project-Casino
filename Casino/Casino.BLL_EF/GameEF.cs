@@ -88,7 +88,7 @@ namespace Casino.BLL_EF
             game.Bandit = bandit1;
             context.Games.Add(game);
             context.Bandits.Add(bandit1);
-            Result result = new Result { Amount = amo, Game = game, User = user };
+            Result result = new Result { Amount = amo, Game = game, User = user , DateTime=DateTime.UtcNow};
             context.Results.Add(result);
             context.SaveChanges();
             return true;
