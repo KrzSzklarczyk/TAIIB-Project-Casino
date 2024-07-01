@@ -15,6 +15,9 @@ namespace Casino.BLL
         public UserTokenResponse Register(UserRegisterRequestDTO user);
         public int GetCredits(UserTokenResponse token);
         public UserResponseDTO GetUserInfo(UserTokenResponse token);
+        public bool changeavatar(UserTokenResponse token,string avatar);
+        public bool changepassword(UserTokenResponse token, string passwd);
+        public bool deleteUser(UserTokenResponse token);
         public UserTokenResponse RefreshToken(UserTokenResponse token);
         public List<UserResponseDTO> GetAllUsers(UserTokenResponse token);
         public int GetUserRole(UserTokenResponse token);

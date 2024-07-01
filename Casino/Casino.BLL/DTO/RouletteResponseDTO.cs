@@ -12,9 +12,10 @@ namespace Casino.BLL.DTO
 {
     public class RouletteResponseDTO
     {
-       
-        public int GameId { get; set; }
-        public string Description { get; set; }
-        public BetType BetType { get; set; }
+
+
+        public bool Red { get; set; }
+        public bool Black { get; set; }
+        public int number { get; set; }
     }
 }

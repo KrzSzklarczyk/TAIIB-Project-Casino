@@ -74,5 +74,20 @@ namespace Casino.Controllers
         {
            return Ok(_User.RemoveUser(token,id));
         }
+        [HttpPut("ChangePasswd")]
+        public ActionResult ChangePasswd([FromBody] UserChangeDTO userChangeDTO)
+        {
+            return Ok(_User.changepassword(userChangeDTO.token, userChangeDTO.cos));
+        }
+        [HttpPut("ChangeAvatar")]
+        public ActionResult ChangeAvatar([FromBody] UserChangeDTO userChangeDTO)
+        {
+            return Ok(_User.changeavatar(userChangeDTO.token, userChangeDTO.cos));
+        }
+        [HttpPut("RemoveAcc")]
+        public ActionResult RemoveAcc([FromBody] UserTokenResponse toekn)
+        {
+            return Ok(_User.deleteUser(toekn));
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace Casino.Model
         public required DateTime EndDate { get; set; }
         public required int MaxBet { get; set; }
         public required int MinBet { get; set; }
+        public required int amount {  get; set; }
 
         public void Configure(EntityTypeBuilder<Game> builder)
         {
@@ -40,13 +41,9 @@ namespace Casino.Model
 
            
 
-            builder.HasOne(x => x.Roulette)
-                .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.SetNull);
+            
 
-            builder.HasOne(x => x.Bandit)
-                .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.SetNull);
+            
         }
     }
 }

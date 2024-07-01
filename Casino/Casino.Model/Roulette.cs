@@ -16,17 +16,16 @@ namespace Casino.Model
         [Key]
         public int RouletteId { get; set; }
         public int GameId { get; set; }
-        [ForeignKey(nameof(GameId))]
-        public required Game Game { get; set; }
-        [MaxLength(500)]
-        public required string Description { get; set; }
-        public required BetType BetType { get; set; }
+     
+        public string Description { get; set; }
+        public bool Red {  get; set; }
+        public bool Black {  get; set; }
+        public int number{  get; set; }
+        public int betnumber{  get; set; }
         
         public void Configure(EntityTypeBuilder<Roulette> builder)
         {
-            builder.HasOne(x => x.Game)
-                .WithOne(x => x.Roulette)
-                .OnDelete(DeleteBehavior.Cascade);
+           
         }
 
     }
