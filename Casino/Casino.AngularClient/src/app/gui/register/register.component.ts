@@ -68,7 +68,11 @@ export class RegisterComponent {
           this.invalidLogin = false;
           this.router.navigate(["/"]);
         },
-        error: (err: HttpErrorResponse) => this.invalidLogin = true
+        error: (err: HttpErrorResponse) => {
+          console.error("register error:", err);
+          this.invalidLogin = true;
+          alert("Error creating user. Given username already exists or there is no connection with database. Please try again.");
+        }
       })
   }
 }
