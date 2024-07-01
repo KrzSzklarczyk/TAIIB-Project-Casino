@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { UserType } from '../../../models/UserRole';
 import { UserResponseDTO } from '../../../models/user.models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,17 +26,22 @@ export class ProfileComponent {
   showChangePasswordForm = false;
   showChangeAvatarForm = false;
   changePasswordForm: FormGroup;
-  showDeleteForm=false;
-  
-  
+  showDeleteForm = false;
+
   //form!: FormGroup;
   //validateHTML = this.userService.validateHTML.bind(this.userService)
 
-  constructor(private fb: FormBuilder, private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService, private authService: AuthService,private router:Router) { 
+  constructor(
+    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.changePasswordForm = this.fb.group({
-     
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      newAvatar: ['']
+      newAvatar: [''],
     });
   }
 
@@ -57,79 +66,79 @@ export class ProfileComponent {
   };
 
   changeAvatar() {
-    
-      const awa = this.changePasswordForm.get('newAvatar')?.value;
-      this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-        this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-        
-   const us:UserChangeDTO = { token:this.cred, cos : awa}
-        if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
-         
-         return
-        
-         }
-        
-        this.http.put<boolean>("https://localhost:7063/Account/ChangeAvatar", us, {
-            headers: new HttpHeaders({ "Content-Type": "application/json"})
-          })
-          .subscribe({
-            next: (response: boolean) => {
-             console.log("testtttt")
-             this.getUserInfo();
-             return
-            },
-            error: (err: HttpErrorResponse) => {return}
-          }); 
+    const awa = this.changePasswordForm.get('newAvatar')?.value;
+    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+    this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+    const us: UserChangeDTO = { token: this.cred, cos: awa };
+    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+      return;
+    }
+
+    this.http
+      .put<boolean>('https://localhost:7063/Account/ChangeAvatar', us, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      })
+      .subscribe({
+        next: (response: boolean) => {
+          console.log('testtttt');
           this.getUserInfo();
-      
+          return;
+        },
+        error: (err: HttpErrorResponse) => {
+          return;
+        },
+      });
+    this.getUserInfo();
   }
 
   toggleChangePasswordForm() {
     this.getUserInfo();
     this.showChangePasswordForm = !this.showChangePasswordForm;
     this.showChangeAvatarForm = false;
-    this.showDeleteForm=false;
+    this.showDeleteForm = false;
   }
 
   toggleChangeAvatarForm() {
     this.getUserInfo();
     this.showChangeAvatarForm = !this.showChangeAvatarForm;
     this.showChangePasswordForm = false;
-    this.showDeleteForm=false;
+    this.showDeleteForm = false;
   }
   toggleDeleteForm() {
     this.getUserInfo();
     this.showDeleteForm = !this.showDeleteForm;
     this.showChangePasswordForm = false;
-    this.showChangeAvatarForm=false;
+    this.showChangeAvatarForm = false;
   }
 
   changePassword() {
-    
     if (this.changePasswordForm.valid) {
-    
       const newPassword = this.changePasswordForm.get('newPassword')?.value;
       this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-        this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-        
-   const us:UserChangeDTO = { token:this.cred, cos : newPassword}
-        if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
-         
-         return
-        
-         }
-        
-        this.http.put<boolean>("https://localhost:7063/Account/ChangePasswd", us, {
-            headers: new HttpHeaders({ "Content-Type": "application/json"})
-          })
-          .subscribe({
-            next: (response: boolean) => {
-             
-             return
-            },
-            error: (err: HttpErrorResponse) => {return}
-          }); 
+      this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+      const us: UserChangeDTO = { token: this.cred, cos: newPassword };
+      if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+        return;
       }
+
+      this.http
+        .put<boolean>('https://localhost:7063/Account/ChangePasswd', us, {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        })
+        .subscribe({
+          next: (response: boolean) => {
+            return;
+          },
+          error: (err: HttpErrorResponse) => {
+            return;
+          },
+        });
+    }
+    if(!this.changePasswordForm.valid) {
+        alert("Invalid Password!!! Password should have : small letters, UpperCase, digits and special characters. Please try again."); 
+    }
   }
 
   deleteAccount() {
@@ -139,27 +148,20 @@ export class ProfileComponent {
     if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
     } else {
       this.http
-        .put<boolean>(
-          'https://localhost:7063/Account/RemoveAcc',
-          this.cred,
-          {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-          }
-        ) 
+        .put<boolean>('https://localhost:7063/Account/RemoveAcc', this.cred, {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        })
         .subscribe({
-          next: (response: boolean) => {
-            
-          },
+          next: (response: boolean) => {},
         });
     }
-    this.logOut()
-    this.router.navigate(["/"]);
-
+    this.logOut();
+    this.router.navigate(['/']);
   }
 
   logOut() {
     // Logic to log out
-  
+
     this.getUserInfo();
     this.authService.logOut();
   }
@@ -177,7 +179,7 @@ export class ProfileComponent {
           {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
           }
-        ) 
+        )
         .subscribe({
           next: (response: UserResponseDTO) => {
             this.userName = response.nickName;

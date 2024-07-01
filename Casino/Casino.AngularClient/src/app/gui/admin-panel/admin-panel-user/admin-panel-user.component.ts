@@ -58,6 +58,7 @@ export class AdminPanelUserComponent implements OnInit {
     this.GetHistory(userId);
     this.showTransactionHistory = true;
     console.log(this.transactionHistory)
+    this.showMatchHistory=false;
   }
   private getAuthHeaders() {
     return new HttpHeaders({
@@ -209,6 +210,10 @@ export class AdminPanelUserComponent implements OnInit {
 
   getMatchHistory(userId: number): void {
     this.setCredentials();
+    this.showMatchHistory=true;
+    this.hisBandit=[];
+    this.hisRoulette=[];
+    this.showTransactionHistory=false;
     if (!this.cred.accessToken || !this.cred.refreshToken) {
       return;
     }

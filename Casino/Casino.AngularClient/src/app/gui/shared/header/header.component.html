@@ -2,7 +2,7 @@
   <ul class="header-list">
     <div *ngIf="userRole === userRoleEnum.Admin">
       <button mat-icon-button class="ikona-admin" [matMenuTriggerFor]="menu">
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon>android</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/admin-user">Panel Uzytkownikow</button>
@@ -50,7 +50,7 @@
         <button mat-menu-item routerLink="/user-history">Match History</button>
         <button mat-menu-item routerLink="/transaction-history">Transaction History</button>
         <button mat-menu-item routerLink="/user-transaction" style="background-color: green;">Buy Credits!!!</button>
-        <button mat-menu-item (click)="logOut()">LogOut</button>
+        <button mat-menu-item (click)="logOut()" routerLink="">LogOut</button>
       </mat-menu>
     </div>
   </ul>

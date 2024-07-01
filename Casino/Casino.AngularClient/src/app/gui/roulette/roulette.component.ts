@@ -14,16 +14,22 @@ export class RouletteComponent implements OnInit {
   spininterval: number = 0;
   selectedButton: string | null = null;
   selectedNumber: number | null = null;
-  betAmount: number = 0;
+  betAmount: number = 25;
   rolledNumber:number=-2137;
   cred: AuthenticatedResponse={accessToken:'',refreshToken:''};
   redNumbers: number[] = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
   blackNumbers: number[] = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
   blueNumbers: number[] = [0];
-
+  isAuthorized: boolean = false;
   constructor(private renderer: Renderer2, private el: ElementRef,private http:HttpClient) {}
 
   ngOnInit(): void {
+    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+    this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+    if (!(this.cred.accessToken == '' || this.cred.refreshToken == '')) {
+      this.isAuthorized = true
+    }
     this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'transform', `rotate(${this.perfecthalf}deg)`);
   }
 

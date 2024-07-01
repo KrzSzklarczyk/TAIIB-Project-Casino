@@ -31,23 +31,24 @@ export class GamesComponent { //implements OnInit
     let content = '';
 
     if (gameType === 'game-slots') {
-      title = 'Informacje o grze Jednoręki Bandyta';
-      content = 'W grze Jednoręki Bandyta twoim celem będzie uzyskanie co najmniej 2 takich samych symboli obok siebie \n';
-      content += '\n Minimalna wartość zakładu wynosi 25 \n';
-      content += '\n Musisz obstawić aby zagrać \n';
-      content += '\n Im więcej powtórzeń tego samego symbolu tym większa nagroda \n';
-      content += '\n Rodzaje symboli mają wpływ na wielkość wygranej \n';
+      title = 'Information about the Slot Machine Game';
+      content = 'In the Slot Machine game, your goal is to get at least 2 identical symbols next to each other \n';
+      content += '\n The minimum bet value is 25 \n';
+      content += '\n You must place a bet to play \n';
+      content += '\n The more repetitions of the same symbol, the greater the reward \n';
+      content += '\n The types of symbols affect the size of the win \n';
     }
     
     if (gameType === 'game-bandit') {
-      title = 'Informacje o grze w Ruletka';
-      content = 'W grze Ruletka twoim celem będzie poprawne obstawienie wyniku losowania \n';
-      content += '\n Minimalna wartość zakładu wynosi 25 \n';
-      content += '\n Postaw ilość jaką chcesz obstawić \n';
-      content += '\n Musisz wybrać kolor i obstawić aby zagrać \n';
-      content += '\n Możesz wybrać tylko jeden kolor \n';
-      content += '\n Możesz obstawić dokładną liczbe aby wygrać jeszcze więcej \n';
+      title = 'Information about the Roulette Game';
+      content = 'In the Roulette game, your goal is to correctly predict the outcome of the draw \n';
+      content += '\n The minimum bet value is 25 \n';
+      content += '\n Place the amount you want to bet \n';
+      content += '\n You must choose a color and place a bet to play \n';
+      content += '\n You can choose only one color \n';
+      content += '\n You can bet on an exact number to win even more \n';
     }
+    
 
     const dialogRef = this.dialog.open(InfoDialogComponent, {
       maxWidth: '90vw',

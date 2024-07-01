@@ -14,12 +14,20 @@ import { UserResponseDTO } from '../../models/user.models';
 export class SlotsyComponent implements OnInit {
   debugText: string = 'Click "Start Rolling" to begin';
   rolling: boolean = false;
-  betAmount: number = 0;
+  betAmount: number = 25;
   cred: AuthenticatedResponse={accessToken:'',refreshToken:''};
+  isAuthorized: boolean = false;
 
   constructor(private slotMachineService: SlotsyService,private http:HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+    this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+    if (!(this.cred.accessToken == '' || this.cred.refreshToken == '')) {
+      this.isAuthorized = true
+    }
+  }
 
   startRolling(): void {
     if(this.betAmount >= 25){
