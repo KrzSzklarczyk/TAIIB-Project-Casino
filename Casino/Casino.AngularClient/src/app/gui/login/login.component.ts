@@ -52,7 +52,11 @@ export class LoginComponent {
         this.invalidLogin = false;
         this.router.navigate(["/"]);
       },
-      error: (err: HttpErrorResponse) => this.invalidLogin = true
+      error: (err: HttpErrorResponse) => {
+        console.error("Login error:", err);
+        this.invalidLogin = true;
+        alert("Invalid username or password. Please try again.");
+      }
     })  
   }
 }
