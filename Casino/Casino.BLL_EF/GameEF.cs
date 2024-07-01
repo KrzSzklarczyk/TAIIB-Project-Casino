@@ -73,7 +73,7 @@ namespace Casino.BLL_EF
                 amo = roulette.betAmount * 35;
 
             }
-            else if(red.Contains(roulette.roll)|| black.Contains(roulette.roll))
+            else if(red.Contains(roulette.roll)|| black.Contains(roulette.roll)&&roulette.roll==-1)
             {
                 amo= roulette.betAmount ;
             }
