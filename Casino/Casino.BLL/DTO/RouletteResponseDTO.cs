@@ -17,5 +17,6 @@ namespace Casino.BLL.DTO
         public bool Red { get; set; }
         public bool Black { get; set; }
         public int number { get; set; }
+        public int betnumber { get; set; }
     }
 }

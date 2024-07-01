@@ -36,7 +36,7 @@ namespace Casino.Controllers
         [HttpGet("Roulette/{id}")]
         public ActionResult RouletteInfo(int id)
         {
-            return Ok(_Game.GetBanditInfo(id));
+            return Ok(_Game.GetRouletteInfo(id));
         }
         [HttpGet("Game/{id}")]
         public ActionResult GameInfo(int id)

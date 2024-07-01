@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthenticatedResponse } from '../../../models/authenticated-response';
 import { BanditResponseDTO } from '../../../models/banditDTO';
 import { GameResponseDTO } from '../../../models/gameDTO';
@@ -24,10 +24,11 @@ interface RouletteHistoryEntry {
   amount: number;
   red: boolean;
   black: boolean;
-  number: number;
+  rolled: number;
   minbet: number;
   maxbet: number;
   betAmount: number;
+  selected:number
 }
 
 @Component({
@@ -39,7 +40,7 @@ interface RouletteHistoryEntry {
 export class MatchHistoryComponent implements OnInit {
   iconMap = ["banana", "seven", "cherry", "plum", "orange", "bell", "bar", "lemon", "melon"];
   displayedColumnsBandit: string[] = ['date', 'amount', 'position1', 'position2', 'position3', 'minbet', 'maxbet', 'betAmount'];
-  displayedColumnsRoulette: string[] = ['date', 'amount', 'red', 'black', 'number', 'minbet', 'maxbet', 'betAmount'];
+  displayedColumnsRoulette: string[] = ['date', 'amount', 'red', 'black','betnumber', 'number', 'minbet', 'maxbet', 'betAmount'];
   cred: AuthenticatedResponse = { accessToken: '', refreshToken: '' };
   hisBandit: BanditHistoryEntry[] = [];
   hisRoulette: RouletteHistoryEntry[] = [];
@@ -73,7 +74,8 @@ export class MatchHistoryComponent implements OnInit {
   rouletteData: RouletteResponseDTO = {
     red: false,
     black: false,
-    number: 0
+    number: 0,
+    betnumber:0
   };
 
   getBanditData(id: number): Observable<BanditResponseDTO> {
@@ -111,9 +113,14 @@ export class MatchHistoryComponent implements OnInit {
       const url = `https://localhost:7063/Game/Roulette/${id}`;
       return this.http.get<RouletteResponseDTO>(url, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      });
+      }).pipe(
+        // Ensure that the response is not null or undefined
+        map(data => data ?? this.rouletteData),
+        catchError(() => of(this.rouletteData)) // Catch any HTTP errors and provide default data
+      );
     }
   }
+  
 
   getResultData(): void {
     this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
@@ -121,7 +128,7 @@ export class MatchHistoryComponent implements OnInit {
     if (this.cred.accessToken === '' || this.cred.refreshToken === '') {
       return;
     }
-
+  
     this.http.post<ResultResponseDTO[]>('https://localhost:7063/Result/GetUserResult', this.cred, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).subscribe(results => {
@@ -147,19 +154,26 @@ export class MatchHistoryComponent implements OnInit {
               );
             } else if (gameData.rouletteId) {
               return this.getRouletteData(gameData.rouletteId).pipe(
-                map(rouletteData => ({
-                  type: 'roulette',
-                  data: {
-                    amount: result.amount,
-                    betAmount: gameData.amount,
-                    date: gameData.endDate,
-                    maxbet: gameData.maxBet,
-                    minbet: gameData.minBet,
-                    red: rouletteData.red,
-                    black: rouletteData.black,
-                    number: rouletteData.number
-                  } as RouletteHistoryEntry
-                }))
+                map(rouletteData => {
+                  if (!rouletteData) {
+                    throw new Error('Received null or undefined roulette data');
+                  }
+                  return {
+                    type: 'roulette',
+                    data: {
+                      amount: result.amount,
+                      betAmount: gameData.amount,
+                      date: gameData.endDate,
+                      maxbet: gameData.maxBet,
+                      minbet: gameData.minBet,
+                      red: rouletteData.red,
+                      black: rouletteData.black,
+                      rolled: rouletteData.number,
+                      selected:rouletteData.betnumber
+                      
+                    } as RouletteHistoryEntry
+                  };
+                })
               );
             } else {
               return of(null); // No Bandit or Roulette data available
@@ -167,7 +181,7 @@ export class MatchHistoryComponent implements OnInit {
           })
         );
       });
-
+  
       // Combine all observables and update the `hisBandit` and `hisRoulette` arrays once all data is fetched
       forkJoin(dataObservables).subscribe(hisData => {
         this.hisBandit = [];
@@ -187,4 +201,5 @@ export class MatchHistoryComponent implements OnInit {
       });
     });
   }
+  
 }

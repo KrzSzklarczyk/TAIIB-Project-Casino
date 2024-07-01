@@ -36,9 +36,9 @@ namespace Casino.BLL_EF
             return mapper.Map<BanditResponseDTO>(xd);
         }
 
-        public RouletteResponseDTO GetRouletteInfo(GameRequestDTO gameId)
+        public RouletteResponseDTO GetRouletteInfo(int gameId)
         {
-            var xd = context.Roulettes.FirstOrDefault(x => x.GameId == gameId.GameId);
+            var xd = context.Roulettes.FirstOrDefault(x => x.RouletteId == gameId);
             if (xd == null) { return null; }
             return mapper.Map<RouletteResponseDTO>(xd);
         }

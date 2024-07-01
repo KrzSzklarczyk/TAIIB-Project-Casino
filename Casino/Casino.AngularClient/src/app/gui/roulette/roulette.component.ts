@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { AuthenticatedResponse } from '../../models/authenticated-response';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-roulette',
@@ -13,12 +15,13 @@ export class RouletteComponent implements OnInit {
   selectedButton: string | null = null;
   selectedNumber: number | null = null;
   betAmount: number = 0;
-
+  rolledNumber:number=-2137;
+  cred: AuthenticatedResponse={accessToken:'',refreshToken:''};
   redNumbers: number[] = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
   blackNumbers: number[] = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
   blueNumbers: number[] = [0];
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private renderer: Renderer2, private el: ElementRef,private http:HttpClient) {}
 
   ngOnInit(): void {
     this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'transform', `rotate(${this.perfecthalf}deg)`);
@@ -27,8 +30,8 @@ export class RouletteComponent implements OnInit {
   spin(): void {
     if(this.betAmount >= 25 && (this.selectedButton == "red" || this.selectedButton == "blue" || this.selectedButton == "black")){
     this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'filter', 'blur(8px)');
-
-    this.spininterval = this.getRandomInt(0, 37) * (360 / 37) + this.getRandomInt(3, 4) * 360;
+this.rolledNumber=this.getRandomInt(0, 37);
+    this.spininterval =this.rolledNumber  * (360 / 37) + this.getRandomInt(3, 4) * 360;
     this.currentLength += this.spininterval;
 
     const numofsecs = this.spininterval;
@@ -41,9 +44,41 @@ export class RouletteComponent implements OnInit {
     setTimeout(() => {
       this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'filter', 'blur(0px)');
     }, numofsecs);
+    this.sendGmae()
   }
   }
+sendGmae():void{
 
+  {
+    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+    this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+      return
+    } else {
+      const tmp= this.selectedNumber==null?this.selectedButton=="blue"?0:-1:this.selectedNumber
+      const r= this.selectedButton=="red"
+      const b= this.selectedButton=="black"
+
+      const url = `https://localhost:7063/Game/PlayRoullete/${tmp}/${r}/${b}/${this.betAmount}/${this.rolledNumber}`;
+      console.log(url);
+      this.http
+        .post<boolean>(
+          url,
+          this.cred,
+          {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          }
+        )
+        .subscribe({
+          next: (response: boolean) => {
+            console.log(response)
+            return
+          },
+        });
+    }
+  }
+}
   toggleButton(button: string): void {
     this.selectedButton = this.selectedButton === button ? null : button;
     this.selectedNumber = null;
