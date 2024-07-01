@@ -26,13 +26,21 @@ namespace Casino.Controllers
             return odp==null?BadRequest("bledne dane lub brak"): Ok (odp);
         }
 
-        [HttpPost("GetUserResult/{userID}")]
-        public ActionResult GetResultsUser(int userID, [FromBody] UserTokenResponse toekn)
+        [HttpPost("GetUserResult")]
+        public ActionResult GetResultsUser( [FromBody] UserTokenResponse toekn)
         {
-            var rez = new ResultRequestDTO { UserId = userID };
-            var odp = _result.GetAllUserResults(rez, toekn);
+           
+            var odp = _result.GetAllUserResults( toekn);
             return odp == null ? BadRequest("bledne dane lub brak") : Ok(odp);
             
+        }
+        [HttpPost("GetUserResult/{id}")]
+        public ActionResult AdminUserRes([FromBody] UserTokenResponse toekn,int id)
+        {
+
+            var odp = _result.GetAllUserResults(toekn,id);
+            return odp == null ? BadRequest("bledne dane lub brak") : Ok(odp);
+
         }
 
         [HttpPost("GetGameResult/{gameID}")]

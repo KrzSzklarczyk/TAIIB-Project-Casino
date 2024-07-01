@@ -252,5 +252,74 @@ namespace Casino.BLL_EF
                 return false;
             }
         }
+
+        public bool changeavatar(UserTokenResponse token, string avatar)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+           user.Avatar = avatar;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool changepassword(UserTokenResponse token, string passwd)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+            user.Password = passwd;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool deleteUser(UserTokenResponse token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token.AccessToken);
+            var userIdClaim = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null)
+            {
+                throw new SecurityTokenException("UserId was not found");
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryDate <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException();
+            }
+            
+           _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

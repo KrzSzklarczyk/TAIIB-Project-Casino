@@ -15,20 +15,15 @@ namespace Casino.Model
     {
         [Key]
         public int BanditId { get; set; }
-        public int GameId { get; set; }
-        [ForeignKey(nameof(GameId))]
-        public required Game Game { get; set; }
-        [MaxLength(500)]
+        
         public required string Description { get; set; }
-        public required BanditType Position1 { get; set; }
-        public required BanditType Position2 { get; set; }
-        public required BanditType Position3 { get; set; }
+        public required int Position1 { get; set; }
+        public required int Position2 { get; set; }
+        public required int Position3 { get; set; }
 
         public void Configure(EntityTypeBuilder<Bandit> builder)
         {
-            builder.HasOne(x => x.Game)
-                .WithOne(x => x.Bandit)
-                .OnDelete(DeleteBehavior.Cascade);
+           
         }
 
     }

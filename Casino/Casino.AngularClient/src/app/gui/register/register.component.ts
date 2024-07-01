@@ -48,14 +48,13 @@ export class RegisterComponent {
         [Validators.required,
           this.userService.passwordMatchValidator(this.form)
         ]));
-
   }
 
   rejestracja = ( data: UserRegisterRequestDTO ) => {
       this.credentials.login = data.login;
       this.credentials.password = data.password;
       this.credentials.email = data.email;
-      this.credentials.avatar = "test.jpg";
+      this.credentials.avatar = "";
       this.credentials.nickName = data.login;
       this.http.post<AuthenticatedResponse>("https://localhost:7063/Account/register", this.credentials, {
         headers: new HttpHeaders({ "Content-Type": "application/json"})
@@ -69,7 +68,11 @@ export class RegisterComponent {
           this.invalidLogin = false;
           this.router.navigate(["/"]);
         },
-        error: (err: HttpErrorResponse) => this.invalidLogin = true
+        error: (err: HttpErrorResponse) => {
+          console.error("register error:", err);
+          this.invalidLogin = true;
+          alert("Error creating user. Given username already exists or there is no connection with database. Please try again.");
+        }
       })
   }
 }

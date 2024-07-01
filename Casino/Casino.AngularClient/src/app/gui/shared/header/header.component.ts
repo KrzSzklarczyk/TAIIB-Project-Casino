@@ -18,10 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() userName: string = '';
   @Input() credits: number = 0;
   @Input() userRole: UserType = UserType.User;
+  @Input() avatar: string = '';
   userRoleEnum: typeof UserType = UserType
   @Output() newItemEvent = new EventEmitter<string>();
   isDropdownOpen = false;
-
+  hasAvatar = false;
 
   constructor(private authService: AuthService, private http: HttpClient) {}
   intervalId: any;
@@ -29,10 +30,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // Call the methods every second
     this.intervalId = setInterval(() => {
       this.getUserInfo();
-      //   this.getCredits();
-      //   this.getUserRole();
-    }, 100);
+      this.hasAvatar = !!this.avatar;
+   
+    }, 300);
   }
+
 
   ngOnDestroy() {
     if (this.intervalId) {
@@ -72,57 +74,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.userName = response.nickName;
             this.credits = response.credits;
             this.userRole = response.userType;
+            this.avatar = response.avatar;
           },
         });
     }
-  } /*
-  getCredits() {
-    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-    {
-      this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+  }
 
-      if (this.cred.accessToken == '' || this.cred.refreshToken == '')
-        this.credits = 0;
-      else {
-        this.http
-          .post<number>(
-            'https://localhost:7063/Account/getCredits',
-            this.cred,
-            {
-              headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            }
-          )
-          .subscribe({
-            next: (response: number) => {
-              this.credits = response;
-            },
-          });
-      }
-    }
-  }
-  getUserRole() {
-    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
-    {
-      this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
-      if ((this.cred.accessToken == '' || this.cred.refreshToken == ''))
-        this.userRole=0
-      else{
-        this.http
-        .post<number>(
-          'https://localhost:7063/Account/GetUserRole',
-          this.cred,
-          {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-          }
-        )
-        .subscribe({
-          next: (response: number) => {
-            this.userRole = response;
-          },
-      });
-    }}
-  }
-  */
   logOut() {
     this.authService.logOut();
   }

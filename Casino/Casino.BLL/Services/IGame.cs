@@ -10,11 +10,11 @@ namespace Casino.BLL
 {
     public interface IGame
     {
-        public GameResponseDTO GetGameInfo(GameRequestDTO gameId);
+        public GameResponseDTO GetGameInfo(int gameId);
        
-        public BanditResponseDTO GetBanditInfo(GameRequestDTO gameId);
+        public BanditResponseDTO GetBanditInfo(int gameId);
         public RouletteResponseDTO GetRouletteInfo(GameRequestDTO gameId);
         public bool PlayBandit(UserTokenResponse token, BanditRequestDTO bandit);
-        public ResultResponseDTO PlayRoulette(UserTokenResponse token, RouletteRequestDTO roulette);
+        public bool PlayRoulette(UserTokenResponse token, RouletteRequestDTO roulette);
     }
 }

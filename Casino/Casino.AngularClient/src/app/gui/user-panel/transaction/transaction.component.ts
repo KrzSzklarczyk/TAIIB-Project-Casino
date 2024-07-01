@@ -27,7 +27,7 @@ export class TransactionComponent {
       cvc: ['', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]],
       ssn: ['', [Validators.required, Validators.pattern('^[0-9]{4}$')]],
       rememberCard: [false],
-      amount: [200, Validators.required],
+      amount: [Validators.required],
     });
   }
 

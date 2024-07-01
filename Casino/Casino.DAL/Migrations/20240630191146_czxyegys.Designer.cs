@@ -4,6 +4,7 @@ using Casino.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Casino.DAL.Migrations
 {
     [DbContext(typeof(CasinoDbContext))]
-    partial class CasinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240630191146_czxyegys")]
+    partial class czxyegys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,26 +136,20 @@ namespace Casino.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RouletteId"));
 
-                    b.Property<bool>("Black")
-                        .HasColumnType("bit");
+                    b.Property<int>("BetType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Red")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("betnumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("number")
-                        .HasColumnType("int");
-
                     b.HasKey("RouletteId");
+
+                    b.HasIndex("GameId");
 
                     b.ToTable("Roulettes");
                 });
@@ -268,6 +265,17 @@ namespace Casino.DAL.Migrations
                     b.Navigation("Game");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Casino.Model.Roulette", b =>
+                {
+                    b.HasOne("Casino.Model.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("Casino.Model.Transactions", b =>

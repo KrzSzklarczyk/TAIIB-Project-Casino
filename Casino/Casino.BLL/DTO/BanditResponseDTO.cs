@@ -14,8 +14,8 @@ namespace Casino.BLL.DTO
     {
 
         public string Description { get; set; }
-        public BanditType Position1 { get; set; }
-        public BanditType Position2 { get; set; }
-        public BanditType Position3 { get; set; }
+        public int Position1 { get; set; }
+        public int Position2 { get; set; }
+        public int Position3 { get; set; }
     }
 }
