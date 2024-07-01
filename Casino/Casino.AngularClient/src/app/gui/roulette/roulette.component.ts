@@ -10,18 +10,23 @@ export class RouletteComponent implements OnInit {
   perfecthalf: number = ((1 / 37) * 360) / 2;
   currentLength: number = this.perfecthalf;
   spininterval: number = 0;
+  selectedButton: string | null = null;
+  selectedNumber: number | null = null;
+  betAmount: number = 0;
+
+  redNumbers: number[] = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+  blackNumbers: number[] = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
+  blueNumbers: number[] = [0];
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'transform', `rotate(${this.perfecthalf}deg)`);
-
-    // Trigger initial spin on component load
-    this.spin();
   }
 
   spin(): void {
-    this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'filter', 'blur(0px)');
+    if(this.betAmount >= 25 && (this.selectedButton == "red" || this.selectedButton == "blue" || this.selectedButton == "black")){
+    this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'filter', 'blur(8px)');
 
     this.spininterval = this.getRandomInt(0, 37) * (360 / 37) + this.getRandomInt(3, 4) * 360;
     this.currentLength += this.spininterval;
@@ -29,14 +34,34 @@ export class RouletteComponent implements OnInit {
     const numofsecs = this.spininterval;
 
     console.log(this.currentLength);
+    console.log(this.selectedButton);
+    console.log(this.selectedNumber);
     this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'transform', `rotate(${this.currentLength}deg)`);
 
     setTimeout(() => {
       this.renderer.setStyle(this.el.nativeElement.querySelector('.wheel img'), 'filter', 'blur(0px)');
     }, numofsecs);
   }
+  }
+
+  toggleButton(button: string): void {
+    this.selectedButton = this.selectedButton === button ? null : button;
+    this.selectedNumber = null;
+  }
 
   getRandomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  getNumbersForSelectedButton(): number[] {
+    if (this.selectedButton === 'red') {
+      return this.redNumbers;
+    } else if (this.selectedButton === 'black') {
+      return this.blackNumbers;
+    } else if (this.selectedButton === 'blue') {
+      return this.blueNumbers;
+    } else {
+      return [];
+    }
   }
 }
