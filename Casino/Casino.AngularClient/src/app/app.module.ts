@@ -34,6 +34,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { TransactionHistoryComponent } from './gui/user-panel/transaction-history/transaction-history.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
+
 export function tokenGetter() { 
   return localStorage.getItem("accessToken"); 
 }
@@ -78,6 +80,7 @@ export function tokenGetter() {
     MatFormFieldModule, 
     MatTableModule,
     MatButtonModule,
+    MatSelectModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
