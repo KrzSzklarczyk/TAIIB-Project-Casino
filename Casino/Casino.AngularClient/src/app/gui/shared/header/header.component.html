@@ -16,9 +16,6 @@
     <li class="nav-button">
       <button class="help-button" routerLink="/helpsite">Help</button>
     </li>
-    <li class="nav-button">
-      <button class="promo-button" routerLink="/promotions">Promotions</button>
-    </li>
 
     <div class="nav-button" style="margin-left: auto;">
       <button
@@ -40,7 +37,7 @@
     <div class="user-info" *ngIf="this.isUserAuthenticated()">
       <span class="credits">{{ credits | number }}</span>
       <span class="username" (click)="toggleDropdown()"
-        >Hello {{ userName }}</span
+        >{{ userName }}</span
       >
       <button *ngIf="!hasAvatar" mat-icon-button [matMenuTriggerFor]="menu" class="ikona">
         <mat-icon>account_circle</mat-icon>

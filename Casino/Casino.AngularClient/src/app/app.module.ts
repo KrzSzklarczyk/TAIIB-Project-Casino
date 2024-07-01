@@ -15,7 +15,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { RegisterComponent } from './gui/register/register.component';
 import { HelpsiteComponent } from './gui/helpsite/helpsite.component';
 import { MainComponent } from './gui/main/main.component';
-import { PromotionsComponent } from './gui/promotions/promotions.component';
 import { SlotsyComponent } from './gui/slotsy/slotsy.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
@@ -28,9 +27,9 @@ import { MatchHistoryComponent } from './gui/user-panel/match-history/match-hist
 import { TransactionComponent } from './gui/user-panel/transaction/transaction.component';
 import { MatInputModule } from '@angular/material/input';
 import { RouletteComponent } from './gui/roulette/roulette.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { TransactionHistoryComponent } from './gui/user-panel/transaction-history/transaction-history.component';
@@ -49,7 +48,6 @@ export function tokenGetter() {
     RegisterComponent,
     HelpsiteComponent,
     MainComponent,
-    PromotionsComponent,
     SlotsyComponent,
     AdminPanelUserComponent,
     AdminPanelFinanceComponent,
