@@ -15,6 +15,6 @@ namespace Casino.BLL
         public BanditResponseDTO GetBanditInfo(int gameId);
         public RouletteResponseDTO GetRouletteInfo(GameRequestDTO gameId);
         public bool PlayBandit(UserTokenResponse token, BanditRequestDTO bandit);
-        public ResultResponseDTO PlayRoulette(UserTokenResponse token, RouletteRequestDTO roulette);
+        public bool PlayRoulette(UserTokenResponse token, RouletteRequestDTO roulette);
     }
 }

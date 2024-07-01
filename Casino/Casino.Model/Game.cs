@@ -41,9 +41,7 @@ namespace Casino.Model
 
            
 
-            builder.HasOne(x => x.Roulette)
-                .WithOne(x => x.Game)
-                .OnDelete(DeleteBehavior.SetNull);
+            
 
             
         }

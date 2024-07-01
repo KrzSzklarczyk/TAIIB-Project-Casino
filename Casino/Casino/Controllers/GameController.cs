@@ -26,7 +26,12 @@ namespace Casino.Controllers
 
             return Ok(_Game.PlayBandit(token,new BanditRequestDTO {pos1=pos1,pos2=pos2,pos3=pos3,betAmount=amoutn }));
         }
+        [HttpPost("PlayRoullete/{betnum}/{red}/{black}/{amoutn}/{roll}")]
+        public ActionResult RoulletePlay(int betnum, bool red, bool black, int amoutn,int roll, [FromBody] UserTokenResponse token)
+        {
 
+            return Ok(_Game.PlayRoulette(token, new RouletteRequestDTO { roll=roll, red= red, black= black, betAmount= amoutn, betNumber =betnum }));
+        }
 
         [HttpGet("Roulette/{id}")]
         public ActionResult RouletteInfo(int id)

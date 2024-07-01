@@ -4,6 +4,7 @@ using Casino.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Casino.DAL.Migrations
 {
     [DbContext(typeof(CasinoDbContext))]
-    partial class CasinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240701102238_bhicxhbuzdsbfysdbfgy")]
+    partial class bhicxhbuzdsbfysdbfgy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +140,6 @@ namespace Casino.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GameId")
@@ -145,9 +147,6 @@ namespace Casino.DAL.Migrations
 
                     b.Property<bool>("Red")
                         .HasColumnType("bit");
-
-                    b.Property<int>("betnumber")
-                        .HasColumnType("int");
 
                     b.Property<int>("number")
                         .HasColumnType("int");
