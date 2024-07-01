@@ -293,6 +293,7 @@ namespace Casino.BLL_EF
             {
                 throw new SecurityTokenException();
             }
+            if (_context.Users.FirstOrDefault(x => x.Login == user.Login && x.Password == passwd) != null) return false;
             user.Password = passwd;
             _context.Users.Update(user);
             _context.SaveChanges();
