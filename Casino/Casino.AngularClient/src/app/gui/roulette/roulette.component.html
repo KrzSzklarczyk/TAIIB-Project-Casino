@@ -3,19 +3,21 @@
     <div class="arrow"></div>
     <img src="https://i.imgur.com/N01W3Ks.png" alt="Wheel Image">
   </div>
-  <div class="buttons">
-    <button (click)="spin()" class="spin-button">Spin the Wheel</button>
-    <button (click)="toggleButton('black')" [class.active]="selectedButton === 'black'" class="toggle-button black-button">Black</button>
-    <button (click)="toggleButton('red')" [class.active]="selectedButton === 'red'" class="toggle-button red-button">Red</button>
-    <button (click)="toggleButton('blue')" [class.active]="selectedButton === 'blue'" class="toggle-button blue-button">Blue</button>
+  <div class="controls">
+    <input type="number" class="bet-input" placeholder="Enter bet amount" [(ngModel)]="betAmount" />
+    <div class="buttons">
+      <button (click)="toggleButton('black')" [class.active]="selectedButton === 'black'" class="toggle-button black-button">Black</button>
+      <button (click)="toggleButton('red')" [class.active]="selectedButton === 'red'" class="toggle-button red-button">Red</button>
+      <button (click)="toggleButton('blue')" [class.active]="selectedButton === 'blue'" class="toggle-button blue-button">Blue</button>
+    </div>
+    <mat-form-field appearance="fill" class="number-select">
+      <mat-label>Choose a number</mat-label>
+      <mat-select [disabled]="!selectedButton" [(value)]="selectedNumber">
+        <mat-option *ngFor="let number of getNumbersForSelectedButton()" [value]="number">
+          {{ number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="spin()" class="spin-button" >Spin the Wheel</button>
   </div>
-  <mat-form-field appearance="fill" class="number-select">
-    <mat-label>Choose a number</mat-label>
-    <mat-select [disabled]="!selectedButton" [(value)]="selectedNumber">
-      <mat-option *ngFor="let number of getNumbersForSelectedButton()" [value]="number">
-        {{ number }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <input type="number" class="bet-input" placeholder="Enter bet amount" [(ngModel)]="betAmount" />
 </div>
