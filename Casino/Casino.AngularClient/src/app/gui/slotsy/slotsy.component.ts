@@ -4,6 +4,7 @@ import { SlotsyService } from './slotsy.service';
 import { NgModel } from '@angular/forms';
 import { AuthenticatedResponse } from '../../models/authenticated-response';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserResponseDTO } from '../../models/user.models';
 
 @Component({
   selector: 'app-root',
@@ -73,6 +74,56 @@ SendGame=(pos1:number,pos2:number,pos3:number,amount:number):void=>
         .subscribe({
           next: (response: boolean) => {
             return
+          },
+        });
+    }
+  }
+
+  setMinBet(): void {
+    this.betAmount = 25;
+  }
+
+  increase25Bet(): void {
+    this.betAmount += 25;
+  }
+
+  increase50Bet(): void {
+    this.betAmount += 50;
+  }
+
+  increase100Bet(): void {
+    this.betAmount += 100;
+  }
+
+  decrease25Bet(): void {
+    this.betAmount -= 25;
+  }
+
+  decrease50Bet(): void {
+    this.betAmount -= 50;
+  }
+
+  decrease100Bet(): void {
+    this.betAmount -= 100;
+  }
+
+  setMaxBet(): void {
+    this.cred.accessToken = localStorage.getItem('accessToken') ?? '';
+    this.cred.refreshToken = localStorage.getItem('refreshToken') ?? '';
+
+    if (this.cred.accessToken == '' || this.cred.refreshToken == '') {
+    } else {
+      this.http
+        .post<UserResponseDTO>(
+          'https://localhost:7063/Account/getUserInfo',
+          this.cred,
+          {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          }
+        )
+        .subscribe({
+          next: (response: UserResponseDTO) => {
+            this.betAmount = response.credits;
           },
         });
     }
